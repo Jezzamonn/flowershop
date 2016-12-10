@@ -16,17 +16,11 @@
 			// constructor code
 			stage.quality = StageQuality.LOW;
 			
-			
-			plant = new Plant();
-			plant.draw();
-			plant.x = stage.stageWidth / 2;
-			plant.y = stage.stageHeight / 2;
-			addChild(plant);
-			
 			textBox = new TextBox();
-			textBox.text = plant.plantType.description;
 			textBox.width = stage.stageWidth;
 			addChild(textBox);
+			
+			randomise();
 			
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 		}
@@ -34,18 +28,22 @@
 		public function onKeyDown(evt:KeyboardEvent):void {
 			switch (evt.keyCode) {
 				case Keyboard.SPACE:
-					if (contains(plant)) {
-						removeChild(plant);
-					}
-					plant = new Plant();
-					plant.draw();
-					plant.x = stage.stageWidth / 2;
-					plant.y = stage.stageHeight / 2;
-					addChild(plant);
-					
-					textBox.text = plant.plantType.description;
+					randomise();
 					break;
 			}
+		}
+		
+		public function randomise():void {
+			if (plant != null && contains(plant)) {
+				removeChild(plant);
+			}
+			plant = new Plant();
+			plant.draw();
+			plant.x = stage.stageWidth / 2;
+			plant.y = stage.stageHeight / 2 + plant.height / 2;
+			addChild(plant);
+			
+			textBox.text = plant.plantType.description;
 		}
 	}
 	

@@ -16,7 +16,16 @@
 			while (numChildren > 0) {
 				removeChildAt(0);
 			}
-			
+
+			// pot
+			var pot:MovieClip = new Pot();
+			pot.scaleX = 0.7;
+			pot.scaleY = 0.7;
+			pot.x = Rndm.float(-2, 2);
+			pot.y = Rndm.float(-2, 2);
+			pot.rotation = Rndm.float(-2, 2);
+			addChild(pot);
+
 			// leaves
 			for (var i:int = 0; i < 40; i ++) {
 				var leaf:MovieClip = new Leaf();
@@ -27,7 +36,7 @@
 				leaf.scaleY = 0.3;
 				leaf.rotation = 180 + Rndm.float(-60, 60);
 				leaf.x = Rndm.float(-50, 50);
-				leaf.y = Rndm.float(-50, 50);
+				leaf.y = Rndm.float(-170, -70);
 				
 				// All leaves are the same green for the moment
 				leaf.transform.colorTransform = new ColorTransform(0.3, 0.6, 0.3);
@@ -44,7 +53,7 @@
 				flower.scaleY = 0.3;
 				flower.rotation = Rndm.float(-20, 20);
 				flower.x = Rndm.float(-40, 40);
-				flower.y = Rndm.float(-50, 40);
+				flower.y = Rndm.float(-170, -90);
 				
 				var mults:Array = plantType.flowerColorMults;
 				flower.transform.colorTransform = new ColorTransform(mults[0], mults[1], mults[2]);
