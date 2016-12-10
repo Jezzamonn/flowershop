@@ -24,7 +24,7 @@
 			addChild(plant);
 			
 			textBox = new TextBox();
-			textBox.text = "Testing font!"
+			textBox.text = plant.plantType.description;
 			textBox.width = stage.stageWidth;
 			addChild(textBox);
 			
@@ -43,9 +43,7 @@
 					plant.y = stage.stageHeight / 2;
 					addChild(plant);
 					
-					textBox.text = "A plant with " +
-								   plant.color + ", " + plant.flowerShape + " flowers and " +
-								   plant.leafShape + " leaves.";
+					textBox.text = plant.plantType.description;
 					break;
 			}
 		}

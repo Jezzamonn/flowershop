@@ -17,9 +17,9 @@
 			// constructor code
 			super();
 			
-			textFormat = new TextFormat("m5x7", 16);
+			textFormat = new TextFormat("m5x7", 32);
 			defaultTextFormat = textFormat;
-			
+			wordWrap = true;
 			embedFonts = true;
 		}
 
