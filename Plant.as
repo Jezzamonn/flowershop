@@ -19,11 +19,13 @@
 				removeChildAt(0);
 			}
 			
+			var leafType:int = Rndm.integer((new Leaf()).totalFrames);
+			var flowerType:int = Rndm.integer((new Flower()).totalFrames);
 			// leaves
 			for (var i:int = 0; i < 40; i ++) {
 				var leaf:MovieClip = new Leaf();
 				
-				leaf.gotoAndStop(1);
+				leaf.gotoAndStop(leafType + 1);
 				
 				leaf.scaleX = 0.3;
 				leaf.scaleY = 0.3;
@@ -39,7 +41,7 @@
 			for (var j:int = 0; j < 8; j ++) {
 				var flower:MovieClip = new Flower();
 				
-				flower.gotoAndStop(1);
+				flower.gotoAndStop(flowerType + 1);
 				
 				flower.scaleX = 0.3;
 				flower.scaleY = 0.3;
