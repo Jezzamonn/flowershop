@@ -26,19 +26,15 @@
 		
 		public function PlantType(flowerShape:String = null, leafShape:String = null, flowerColor:String = null) {
 			// load values given, or otherwise pick randomly
-			if (flowerShape == null) {
-				flowerShape = pickRandom(FLOWER_SHAPES);
-			}
-			if (leafShape == null) {
-				leafShape = pickRandom(LEAF_SHAPES);
-			}
-			if (flowerColor == null) {
-				flowerColor = pickRandom(FLOWER_COLORS);
-			}
-			
 			this.flowerShape = flowerShape;
 			this.flowerColor = flowerColor;
 			this.leafShape = leafShape;
+		}
+		
+		public function randomise():void {
+			flowerShape = pickRandom(FLOWER_SHAPES);
+			leafShape = pickRandom(LEAF_SHAPES);
+			flowerColor = pickRandom(FLOWER_COLORS);
 		}
 		
 		public function get leafShapeIndex():int {
@@ -59,9 +55,31 @@
 		}
 		
 		public function get description():String {
-			return "A plant with " +
-					flowerColor + ", " + flowerShape + " flowers and " +
-					leafShape + " leaves.";
+			if (flowerColor == null && flowerShape == null && leafShape == null) {
+				return "Any plant";
+			}
+			
+			var description:String = "A plant with "
+			if (flowerColor) {
+				description += flowerColor;
+			}
+			if (flowerShape) {
+				if (flowerColor) {
+					description += ", ";
+				}
+				description += flowerShape;
+			}
+			if (flowerColor || flowerShape) {
+				description += " flowers";
+			}
+			
+			if (leafShape) {
+				if (flowerShape || flowerColor) {
+					description += " and ";
+				}
+				description += leafShape + " leaves";
+			}
+			return description;
 		}
 
 	}

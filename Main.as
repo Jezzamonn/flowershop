@@ -22,6 +22,19 @@
 			
 			randomise();
 			
+			var flowerShapes = PlantType.FLOWER_SHAPES.concat(null);
+			var flowerColors = PlantType.FLOWER_COLORS.concat(null);
+			var leafShapes = PlantType.LEAF_SHAPES.concat(null);
+			for each (var flowerShape in flowerShapes) {
+				for each (var flowerColor in flowerColors) {
+					for each (var leafShape in leafShapes) {
+						var plantType:PlantType = new PlantType(flowerShape, leafShape, flowerColor);
+						trace(plantType.description);
+						
+					}
+				}
+			}
+			
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 		}
 		
@@ -38,6 +51,7 @@
 				removeChild(plant);
 			}
 			plant = new Plant();
+			plant.plantType.randomise();
 			plant.draw();
 			plant.x = stage.stageWidth / 2;
 			plant.y = stage.stageHeight / 2 + plant.height / 2;

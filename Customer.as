@@ -2,7 +2,7 @@
 	
 	public class Customer {
 		
-		public var 
+		public var plantType:PlantType;
 
 		public function Customer() {
 			// constructor code
