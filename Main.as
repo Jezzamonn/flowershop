@@ -45,9 +45,11 @@
 		
 		public static const DIFFICULTIES:Array = [
 			[0, 1],
+			[1, 1, 0],
 			[1, 1, 1],
-			[1, 1, 2],
-			[2, 2, 3],
+			[2, 1, 0],
+			[1, 2, 3],
+			[3, 3, 0, 2],
 			[3, 3, 3, 3],
 		];
 		
@@ -68,6 +70,7 @@
 			textBox.textField.width = FULL_WIDTH;
 			
 			hoverText = new TextBox();
+			hoverText.textField.width = 150;
 			
 			
 			Rndm.seed = int.MAX_VALUE * Math.random();
@@ -163,10 +166,10 @@
 		public function onKeyDown(evt:KeyboardEvent):void {
 			switch (state) {
 				case STATE_WORKBENCH:
-					workbench = new Workbench();
+					//workbench = new Workbench();
 					break;
 				case STATE_FLOWERSHOP:
-					flowerShop.onKeyDown(evt);
+					//flowerShop.onKeyDown(evt);
 					break;
 			}
 		}
