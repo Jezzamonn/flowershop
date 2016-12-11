@@ -12,9 +12,9 @@
 		public static const WIDTH:int = 550;
 		public static const HEIGHT:int = 550;
 		
-		var plant:Plant;
 		var textBox:TextBox;
 		var customers:Array;
+		var workbench:Workbench;
 		
 		public function Main() {
 			// constructor code
@@ -23,9 +23,6 @@
 			textBox = new TextBox();
 			textBox.width = stage.stageWidth;
 			addChild(textBox);
-			
-			var workBench:Workbench = new Workbench();
-			addChild(workBench);
 			
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 		}
@@ -36,6 +33,22 @@
 		
 		public function onKeyDown(evt:KeyboardEvent):void {
 			switch (evt.keyCode) {
+				case Keyboard.SPACE:
+					if (workbench == null) {
+						workbench = new Workbench();
+						addChild(workbench);
+					}
+					else {
+						workbench.state ++;
+						if (workbench.state >= 4) {
+							removeChild(workbench);
+							workbench = null;
+						}
+						else {
+							workbench.updateState();
+						}
+					}
+					break;
 			}
 		}
 	}
