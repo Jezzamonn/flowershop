@@ -97,7 +97,9 @@
 		private var _requestText:String;
 		public function get requestText():String {
 			if (!_requestText) {
-				var out:String = "I'd like " + plantType.description;
+				var out:String = "";
+				out += Util.pickRandom(["Hi!", "Hi.", "Hey!", "Hey.", "Hello.", "Hi there."]);
+				out += " I'd like " + plantType.description;
 				if (Rndm.boolean(0.3)) {
 					out += ", please!";
 				} else {
@@ -113,9 +115,8 @@
 			if (!_pickupText) {
 				_pickupText = Util.pickRandom([
 					"I'm here to get my flower!",
-					"One plant please!",
 					"Hello! Do you have my plant ready?",
-					"Hi! Can I pick up the plant?",
+					"Hi again! Can I pick up the plant?",
 					"I'll grab that plant now, thanks."
 				]);
 			}
