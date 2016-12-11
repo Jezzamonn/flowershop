@@ -6,6 +6,7 @@
 	import flash.ui.Keyboard;
 	import flash.geom.Matrix;
 	import com.gskinner.utils.Rndm;
+	import flash.events.MouseEvent;
 	
 	public class FlowerShop {
 		
@@ -13,7 +14,14 @@
 		private static const IMAGE_CLASS:Class;
 		private static var image:BitmapData;
 		
-		public var currentCustomer:Customer;
+		public var customerIndex:int = -1;
+		public function get currentCustomer():Customer {
+			if (customers && customerIndex >= 0 && customerIndex < customers.length) {
+				return customers[customerIndex];
+			}
+			return null;
+		}
+		public var customers:Array;
 		public var textBox:TextBox;
 
 		public function FlowerShop() {
@@ -28,12 +36,16 @@
 		}
 		
 		public function onKeyDown(evt:KeyboardEvent):void {
-			switch (evt.keyCode) {
-				case Keyboard.R:
-					currentCustomer = new Customer();
-					currentCustomer.setPreferences(Rndm.integer(4));
-					textBox.text = currentCustomer.requestText;
-					break;
+			// NOTHING!
+		}
+		
+		public function onMouseDown(evt:MouseEvent):void {
+			customerIndex ++;
+			if (currentCustomer) {
+				textBox.text = currentCustomer.requestText;
+			}
+			else {
+				textBox.text = "";
 			}
 		}
 		

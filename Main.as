@@ -10,6 +10,7 @@
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
 	import flash.geom.Matrix;
+	import flash.events.MouseEvent;
 	
 	
 	public class Main extends MovieClip {
@@ -65,13 +66,16 @@
 			
 			factorMapping = new FactorMapping();
 			
+			startDay();
+			
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 			stage.addEventListener(Event.ENTER_FRAME, onEnterFrame);
 			stage.addEventListener(Event.RESIZE, resize);
-			//stage.addEventListener(Event.MOUSE_DOWN, onMouseDown);
+			stage.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
 			resize();
 		}
 		
+		// events and stuff
 		public function onEnterFrame(evt:Event):void {
 			update();
 			render();
@@ -116,16 +120,6 @@
 			bitmap.y = (stage.stageHeight - scale * bitmap.bitmapData.height) / 2;
 		}
 		
-		public function startDay():void {
-			customers = [];
-			for (var i:int = 0; i < DIFFICULTIES[day].length; i ++) {
-				var customer:Customer = new Customer();
-				customer.setPreferences(DIFFICULTIES[day][i]);
-				customers.push(customer);
-			}
-			Util.shuffle(customers);
-		}
-		
 		public function onKeyDown(evt:KeyboardEvent):void {
 			switch (state) {
 				case STATE_WORKBENCH:
@@ -136,6 +130,34 @@
 					break;
 			}
 		}
+		
+		public function onMouseDown(evt:MouseEvent):void {
+			switch (state) {
+				case STATE_WORKBENCH:
+					//workbench.onMouseDown(evt);
+					break;
+				case STATE_FLOWERSHOP:
+					flowerShop.onMouseDown(evt);
+					if (flowerShop.customerIndex > flowerShop.customers.length) {
+						state = STATE_WORKBENCH;
+					}
+					break;
+			}
+		}
+		
+		// Game stuff
+		public function startDay():void {
+			customers = [];
+			for (var i:int = 0; i < DIFFICULTIES[day].length; i ++) {
+				var customer:Customer = new Customer();
+				customer.setPreferences(DIFFICULTIES[day][i]);
+				customers.push(customer);
+			}
+			Util.shuffle(customers);
+			
+			flowerShop.customers = customers;
+		}
+		
 	}
 	
 }
