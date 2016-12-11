@@ -15,6 +15,7 @@
 		var textBox:TextBox;
 		var customers:Array;
 		var workbench:Workbench;
+		public static var factorMapping:FactorMapping;
 		
 		public function Main() {
 			// constructor code
@@ -24,7 +25,7 @@
 			textBox.width = stage.stageWidth;
 			addChild(textBox);
 			
-			PlantType.randomiseFactors();
+			factorMapping = new FactorMapping();
 			
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 		}
