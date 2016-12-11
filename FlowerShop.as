@@ -8,6 +8,7 @@
 	import com.gskinner.utils.Rndm;
 	import flash.events.MouseEvent;
 	import flash.display.Sprite;
+	import flash.filters.ColorMatrixFilter;
 	
 	public class FlowerShop {
 		
@@ -141,6 +142,16 @@
 			
 			for (var i:int = 0; i < plants.length; i ++) {
 				context.draw(plantSprite);
+			}
+			
+			if (state == STATE_NIGHT) {
+				var filter:ColorMatrixFilter = new ColorMatrixFilter([
+					0.3, 0, 0, 0, 0,
+					0, 0.4, 0, 0, 0,
+					0, 0, 0.5, 0, 0,
+					0, 0, 0, 1, 0,
+				]);
+				context.applyFilter(context, context.rect, new Point(), filter);
 			}
 			
 		}

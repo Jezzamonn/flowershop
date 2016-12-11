@@ -3,6 +3,7 @@
 	import flash.display.MovieClip;
 	import flash.events.MouseEvent;
 	import flash.events.Event;
+	import flash.display.BitmapData;
 	
 	public class Workbench extends Sprite {
 		
@@ -28,6 +29,10 @@
 			addChild(optionSprite);
 			
 			updateState();
+		}
+		
+		public function renderHighRes(context:BitmapData):void {
+			context.fillRect(context.rect, 0xf6efe5);
 		}
 		
 		public function selectOption(index:int):void {

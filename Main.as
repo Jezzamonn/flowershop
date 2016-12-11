@@ -102,6 +102,20 @@
 			
 			hoverText.x = mousePoint.x * 2 - hoverText.textField.textWidth / 2;
 			hoverText.y = mousePoint.y * 2 - hoverText.textField.textHeight - 5;
+			
+			if (hoverText.minX < 0) {
+				hoverText.minX = 0;
+			}
+			else if (hoverText.maxX > FULL_WIDTH) {
+				hoverText.maxX = FULL_WIDTH;
+			}
+			
+			if (hoverText.minY < 0) {
+				hoverText.minY = 0;
+			}
+			else if (hoverText.maxY > FULL_HEIGHT) {
+				hoverText.maxY = FULL_HEIGHT;
+			}
 		}
 		
 		public function render():void {
@@ -122,6 +136,7 @@
 					flowerShop.renderHighRes(scaledBitmapData);
 					break;
 				case STATE_WORKBENCH:
+					workbench.renderHighRes(scaledBitmapData);
 					scaledBitmapData.draw(workbench, scaleMatrix);
 					break;
 			}
@@ -167,7 +182,6 @@
 					}
 					break;
 				case STATE_FLOWERSHOP:
-					flowerShop.onMouseDown(mousePoint.x, mousePoint.y);
 					if (flowerShop.done) {
 						switch (flowerShop.state) {
 							case FlowerShop.STATE_REQUEST:
@@ -178,6 +192,9 @@
 								startDay();
 								break;
 						}
+					}
+					else {
+						flowerShop.onMouseDown(mousePoint.x, mousePoint.y);
 					}
 					break;
 			}

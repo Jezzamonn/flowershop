@@ -41,6 +41,38 @@
 			}
 		}
 		
+		public function get minX():Number {
+			return this.x;
+		}
+		
+		public function set minX(val:Number):void {
+			this.x = val;
+		}
+		
+		public function get maxX():Number {
+			return minX + textField.textWidth + 3 
+		}
+		
+		public function set maxX(val:Number) {
+			minX = val - textField.textWidth - 3;
+		}
+		
+		public function get minY():Number {
+			return this.y + 3;
+		}
+		
+		public function set minY(val:Number):void {
+			this.y = val - 3;
+		}
+		
+		public function get maxY():Number {
+			return minY + textField.textHeight;
+		}
+		
+		public function set maxY(val:Number):void {
+			minY = val - textField.textHeight;
+		}
+		
 		public function get text():String {
 			return textField.text;
 		}
