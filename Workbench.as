@@ -76,7 +76,8 @@
 								break;
 						}
 						option.gotoAndStop(i + 1);
-						
+						option.scaleX = 0.2;
+						option.scaleY = 0.2;
 						option.x = (i + 1) * Main.WIDTH / (numOptions + 1);
 						optionSprite.addChild(option);
 					}
