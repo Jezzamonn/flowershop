@@ -10,7 +10,7 @@
 			"smooth", "jagged", "spikey",
 		];
 		public static const FLOWER_COLORS:Array = [
-			"red", "pink", "blue", "orange", "purple",
+			"red", "pink", "blue", //"orange", "purple",
 		];
 		public static const FLOWER_COLOR_MULTS:Object = {
 			red: [0.7, 0.3, 0.3],
@@ -23,6 +23,13 @@
 		public static const PROPERTIES:Array = [
 			"flowerShape", "leafShape", "flowerColor"
 		];
+		
+		public static const FACTORS:Object = {
+			seedType: ["oval", "small", "long", "lumpy"],
+			fertilizer: ["bone meal", "kelp meal", "soybean meal", "agricultural lime"],
+			waterAmount: ["none", "little", "medium", "lots"]
+			
+		};
 		
 		public var flowerShape:String;
 		public var leafShape:String;
