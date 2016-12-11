@@ -19,6 +19,10 @@
 		
 		public function render(context:BitmapData):void {
 			context.fillRect(context.rect, 0xb4e2ea);
+			
+			// Render customer here
+			
+			
 			context.copyPixels(image, image.rect, new Point(), null, null, true);
 		}
 
