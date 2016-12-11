@@ -81,18 +81,18 @@
 			updateText();
 		}
 		
+		public function checkHover(mouseX:Number, mouseY:Number):void {
+			var plant:Plant = Util.getCloseChild(plantSprite, mouseX, mouseY) as Plant;
+			if (plant) {
+				Main.main.hoverText.text = plant.plantType.hoverText;
+			}
+		}
+		
 		public function pickFlower(mouseX:Number, mouseY:Number):void {
-			for (var i:int = 0; i < plantSprite.numChildren; i ++) {
-				var child:Plant = plantSprite.getChildAt(i) as Plant;
-				var xDif:Number = plantSprite.x + child.x - mouseX;
-				var yDif:Number = plantSprite.y + child.y - mouseY;
-				var r2Dif = xDif * xDif + yDif * yDif;
-				
-				if (r2Dif < 10 * 10) {
-					plantSprite.removeChild(child);
-					givePlant(child);
-					return;
-				}
+			var plant:Plant = Util.getCloseChild(plantSprite, mouseX, mouseY) as Plant;
+			if (plant) {
+				plantSprite.removeChild(plant);
+				givePlant(plant);
 			}
 		}
 		
@@ -160,7 +160,7 @@
 			for (var i:int = 0; i < plants.length; i ++) {
 				var plant:Plant = plants[i];
 				plant.x = (i + 1) * 0.2 * Main.WIDTH;
-				plant.y = 0.9 * Main.HEIGHT;
+				plant.y = 0.95 * Main.HEIGHT;
 				plant.scaleX = 0.1;
 				plant.scaleY = 0.1;
 				plantSprite.addChild(plant);

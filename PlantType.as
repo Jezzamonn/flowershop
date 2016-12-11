@@ -12,8 +12,8 @@
 		};
 		
 		public static const PROPERTIES:Object = {
-			flowerShape: ["rose", "spikey", "tissue box", "ball-shaped"],
-			leafShape: ["smooth", "jagged", "spikey", "heart-shaped"],
+			flowerShape: ["rose", "spiky", "frangipani", "ball-shaped"],
+			leafShape: ["smooth", "jagged", "spiky", "heart-shaped"],
 			flowerColor: ["red", "pink", "blue", "orange", /*"purple"*/]
 		};
 		
@@ -78,6 +78,30 @@
 			if (leafShape) {
 				if (flowerShape || flowerColor) {
 					description += " and ";
+				}
+				description += leafShape + " leaves";
+			}
+			return description;
+		}
+		
+		public function get hoverText():String {
+			var description:String = "";
+			if (flowerColor) {
+				description += flowerColor;
+			}
+			if (flowerShape) {
+				if (flowerColor) {
+					description += ", ";
+				}
+				description += flowerShape;
+			}
+			if (flowerColor || flowerShape) {
+				description += " flowers";
+			}
+			
+			if (leafShape) {
+				if (flowerShape || flowerColor) {
+					description += "\n";
 				}
 				description += leafShape + " leaves";
 			}

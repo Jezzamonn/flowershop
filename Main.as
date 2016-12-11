@@ -16,6 +16,8 @@
 	
 	public class Main extends MovieClip {
 		
+		public static var main:Main;
+		
 		public static const WIDTH:int = 100;
 		public static const HEIGHT:int = 100;
 		public static const BASE_SCALE:int = 2;
@@ -27,6 +29,7 @@
 		public var bitmap:Bitmap;
 		
 		public var textBox:TextBox;
+		public var hoverText:TextBox;
 		public var workbench:Workbench;
 		public var flowerShop:FlowerShop;
 		
@@ -48,6 +51,7 @@
 		];
 		
 		public function Main() {
+			main = this;
 			// constructor code
 			stage.quality = StageQuality.LOW;
 			stage.align = StageAlign.TOP_LEFT;
@@ -62,6 +66,8 @@
 			textBox = new TextBox();
 			textBox.width = stage.stageWidth;
 			//addChild(textBox);
+			
+			hoverText = new TextBox();
 			
 			factorMapping = new FactorMapping();
 			
@@ -81,7 +87,21 @@
 		}
 		
 		public function update():void {
-			// nothing yet
+			var mousePoint:Point = bitmap.globalToLocal(new Point(mouseX, mouseY));
+			mousePoint.x /= 2;
+			mousePoint.y /= 2;
+			
+			hoverText.text = "";
+			switch (state) {
+				case STATE_FLOWERSHOP:
+					flowerShop.checkHover(mousePoint.x, mousePoint.y);
+					break;
+				case STATE_WORKBENCH:
+					break;
+			}
+			
+			hoverText.x = mousePoint.x * 2 - hoverText.textWidth / 2;
+			hoverText.y = mousePoint.y * 2 - hoverText.textHeight - 5;
 		}
 		
 		public function render():void {
@@ -106,6 +126,7 @@
 					scaledBitmapData.draw(workbench.textBox);
 					break;
 			}
+			scaledBitmapData.draw(hoverText, hoverText.transform.matrix);
 		}
 		
 		public function resize(evt:Event = null):void {

@@ -23,8 +23,8 @@
 
 		public function Workbench() {
 			textBox = new TextBox();
-			textBox.width = 600;
-			textBox.text = "HELLO";
+			textBox.width = Main.FULL_WIDTH;
+			textBox.text = "";
 			
 			donePlants = [];
 			
@@ -67,16 +67,9 @@
 				updateState();
 			}
 			else {
-				for (var i:int = 0; i < optionSprite.numChildren; i ++) {
-					var child:MovieClip = optionSprite.getChildAt(i) as MovieClip;
-					var xDif:Number = optionSprite.x + child.x - mouseX;
-					var yDif:Number = optionSprite.y + child.y - mouseY;
-					var r2Dif = xDif * xDif + yDif * yDif;
-					
-					if (r2Dif < 10 * 10) {
-						selectOption(child.currentFrame - 1);
-						return;
-					}
+				var child:MovieClip = Util.getCloseChild(optionSprite, mouseX, mouseY) as MovieClip;
+				if (child) {
+					selectOption(child.currentFrame - 1);
 				}
 			}
 		}
@@ -86,6 +79,8 @@
 			while (optionSprite.numChildren > 0) {
 				optionSprite.removeChildAt(0);
 			}
+			
+			textBox.text = "";
 			
 			if (donePlants.length >= 4) {
 				return;
@@ -124,6 +119,8 @@
 					plant.x = 0.5 * Main.WIDTH;
 					plant.y = 0.85 * Main.HEIGHT;
 					addChild(plant);
+					
+					textBox.text = plant.plantType.description;
 					break;
 			}
 		}
