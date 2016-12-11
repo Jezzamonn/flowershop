@@ -74,6 +74,30 @@
 			}
 		}
 		
+		public function checkHover(mouseX:Number, mouseY:Number):void {
+			switch (state) {
+				case STATE_SEED:
+				case STATE_FERTILIZER:
+				case STATE_WATER:
+					var closest:MovieClip = Util.getCloseChild(optionSprite, mouseX, mouseY) as MovieClip;
+					if (closest) {
+						var index:int = closest.currentFrame - 1;
+						switch (state) {
+							case STATE_SEED: // seeds
+								Main.main.hoverText.text = PlantType.FACTORS["seedType"][index];
+								break;
+							case STATE_FERTILIZER:
+								Main.main.hoverText.text = PlantType.FACTORS["fertilizer"][index];
+								break;
+							case STATE_WATER:
+								Main.main.hoverText.text = PlantType.FACTORS["waterAmount"][index];
+								break;
+						}
+					}
+					break;
+			}
+		}
+		
 		public function updateState():void {
 			// Clear existing options
 			while (optionSprite.numChildren > 0) {

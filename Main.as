@@ -97,6 +97,7 @@
 					flowerShop.checkHover(mousePoint.x, mousePoint.y);
 					break;
 				case STATE_WORKBENCH:
+					workbench.checkHover(mousePoint.x, mousePoint.y);
 					break;
 			}
 			

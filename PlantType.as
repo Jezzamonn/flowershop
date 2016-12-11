@@ -18,9 +18,9 @@
 		};
 		
 		public static const FACTORS:Object = {
-			seedType: ["oval", "small", "long", "lumpy"],
-			fertilizer: ["kelp meal", "bone meal", "soybean meal", "agricultural lime"],
-			waterAmount: ["none", "little", "medium", "lots"]
+			seedType: ["oval seed", "small seed", "long seed", "lumpy seed"],
+			fertilizer: ["kelp meal fertilizer", "bone meal fertilizer", "soybean meal fertilizer", "agricultural lime fertilizer"],
+			waterAmount: ["one drip of water", "a little water", "some water", "lots of water"]
 		};
 		
 		public var flowerShape:String;
