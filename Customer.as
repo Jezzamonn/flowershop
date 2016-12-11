@@ -18,7 +18,14 @@
 		public var bitmapData:BitmapData;
 
 		public var plantType:PlantType;
-		public var happy:Boolean = false;
+		private var _happy:Boolean = false;
+		public function get happy():Boolean {
+			return _happy;
+		}
+		public function set happy(val:Boolean):void {
+			_responseText = null;
+			_happy = val;
+		}
 
 		public function Customer() {
 			plantType = new PlantType();
@@ -112,7 +119,7 @@
 				else {
 					_responseText = Util.pickRandom([
 						"Oh. This isn't what I ordered.",
-						"Hm. Well, this will be ok.",
+						"Hm. This isn't quite right.",
 						"This isn't what I wanted!",
 						"Sorry, this isn't right.",
 						"Er... Did you forget my order?"

@@ -137,7 +137,7 @@
 			var mousePoint:Point = bitmap.globalToLocal(new Point(evt.stageX, evt.stageY));
 			mousePoint.x /= 2;
 			mousePoint.y /= 2;
-			trace(mousePoint);
+			//trace(mousePoint);
 			switch (state) {
 				case STATE_WORKBENCH:
 					workbench.onMouseDown(mousePoint.x, mousePoint.y);

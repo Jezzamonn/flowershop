@@ -96,6 +96,9 @@
 			if (curPlant.plantType.matchesRequest(currentCustomer.plantType)) {
 				currentCustomer.happy = true;
 			}
+			else {
+				currentCustomer.happy = false;
+			}
 			updateText();
 		}
 		
@@ -114,6 +117,7 @@
 								break;
 							case SUBSTATE_RESPONSE:
 								textBox.text = currentCustomer.responseText;
+								break;
 						}
 						break;
 				}
