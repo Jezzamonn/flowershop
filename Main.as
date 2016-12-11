@@ -11,6 +11,7 @@
 		
 		var plant:Plant;
 		var textBox:TextBox;
+		var customers:Array;
 		
 		public function Main() {
 			// constructor code
@@ -22,7 +23,18 @@
 			
 			randomise();
 			
+			startDay();
+			
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
+		}
+		
+		public function startDay():void {
+			customers = [];
+			for (var i:int = 0; i < 10; i ++) {
+				var customer:Customer = new Customer();
+				customer.randomisePreferences(i % 4);
+				trace(customer.plantType.description);
+			}
 		}
 		
 		public function onKeyDown(evt:KeyboardEvent):void {

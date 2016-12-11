@@ -20,9 +20,13 @@
 			purple: [0.6, 0.4, 0.6]
 		};
 		
+		public static const PROPERTIES:Array = [
+			"flowerShape", "leafShape", "flowerColor"
+		];
+		
 		public var flowerShape:String;
 		public var leafShape:String;
-		public var flowerColor:String;		
+		public var flowerColor:String;
 		
 		public function PlantType(flowerShape:String = null, leafShape:String = null, flowerColor:String = null) {
 			// load values given, or otherwise pick randomly
@@ -32,9 +36,9 @@
 		}
 		
 		public function randomise():void {
-			flowerShape = pickRandom(FLOWER_SHAPES);
-			leafShape = pickRandom(LEAF_SHAPES);
-			flowerColor = pickRandom(FLOWER_COLORS);
+			flowerShape = Util.pickRandom(FLOWER_SHAPES);
+			leafShape = Util.pickRandom(LEAF_SHAPES);
+			flowerColor = Util.pickRandom(FLOWER_COLORS);
 		}
 		
 		public function get leafShapeIndex():int {
@@ -47,11 +51,6 @@
 		
 		public function get flowerColorMults():Array {
 			return FLOWER_COLOR_MULTS[flowerColor];
-		}
-		
-		// Helper
-		private function pickRandom(arr:Array):* {
-			return arr[Rndm.integer(arr.length)];
 		}
 		
 		public function get description():String {
