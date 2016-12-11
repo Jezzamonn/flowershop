@@ -105,6 +105,7 @@
 					break;
 				case STATE_WORKBENCH:
 					scaledBitmapData.draw(workbench, scaleMatrix);
+					scaledBitmapData.draw(workbench.textBox);
 					break;
 			}
 		}

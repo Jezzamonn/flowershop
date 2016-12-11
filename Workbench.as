@@ -10,6 +10,8 @@
 		public var optionSprite:Sprite;
 		public var plant:Plant;
 		
+		public var donePlants:Array = [];
+		
 		public var state:int = 0;
 		public static const STATE_SEED:int = 0;
 		public static const STATE_FERTILIZER:int = 1;
@@ -22,9 +24,12 @@
 		public function Workbench() {
 			textBox = new TextBox();
 			textBox.width = 600;
+			textBox.text = "HELLO";
+			
+			donePlants = [];
 			
 			optionSprite = new Sprite();
-			optionSprite.y = 0.7 * Main.HEIGHT;
+			optionSprite.y = 0.8 * Main.HEIGHT;
 			addChild(optionSprite);
 			
 			updateState();
@@ -52,17 +57,28 @@
 		
 		public function onMouseDown(mouseX:Number, mouseY:Number):void {
 			// circular hitboxes, good enough
-			for (var i:int = 0; i < optionSprite.numChildren; i ++) {
-				var child:MovieClip = optionSprite.getChildAt(i) as MovieClip;
-				var xDif:Number = optionSprite.x + child.x - mouseX;
-				var yDif:Number = optionSprite.y + child.y - mouseY;
-				var r2Dif = xDif * xDif + yDif * yDif;
-				
-				trace(Math.sqrt(r2Dif));
-				
-				if (r2Dif < 10 * 10) {
-					selectOption(child.currentFrame - 1);
-					return;
+			if (state >= 3) {
+				state = 0;
+				donePlants.push(plant);
+				plant.x = donePlants.length * 0.2 * Main.WIDTH;
+				plant.y = 0.3 * Main.HEIGHT;
+				plant.scaleX = 0.15;
+				plant.scaleY = 0.15;
+				updateState();
+			}
+			else {
+				for (var i:int = 0; i < optionSprite.numChildren; i ++) {
+					var child:MovieClip = optionSprite.getChildAt(i) as MovieClip;
+					var xDif:Number = optionSprite.x + child.x - mouseX;
+					var yDif:Number = optionSprite.y + child.y - mouseY;
+					var r2Dif = xDif * xDif + yDif * yDif;
+					
+					trace(Math.sqrt(r2Dif));
+					
+					if (r2Dif < 10 * 10) {
+						selectOption(child.currentFrame - 1);
+						return;
+					}
 				}
 			}
 		}
@@ -73,6 +89,9 @@
 				optionSprite.removeChildAt(0);
 			}
 			
+			if (donePlants.length >= 4) {
+				return;
+			}
 			switch (state) {
 				case STATE_SEED:
 				case STATE_FERTILIZER:
