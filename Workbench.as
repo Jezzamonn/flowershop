@@ -1,6 +1,7 @@
 ﻿package  {
 	import flash.display.Sprite;
 	import flash.display.MovieClip;
+	import flash.events.MouseEvent;
 	
 	public class Workbench extends Sprite {
 		
@@ -12,6 +13,10 @@
 		public static const STATE_SEED:int = 0;
 		public static const STATE_FERTILIZER:int = 1;
 		public static const STATE_WATER:int = 2;
+		
+		public var seedType:String;
+		public var fertilizer:String;
+		public var waterAmount:String;
 
 		public function Workbench() {
 			textBox = new TextBox();
@@ -20,7 +25,29 @@
 			optionSprite = new Sprite();
 			optionSprite.y = 0.7 * Main.HEIGHT;
 			addChild(optionSprite);
+			optionSprite.addEventListener(MouseEvent.CLICK, onOptionSelect);
 			
+			updateState();
+		}
+		
+		public function onOptionSelect(evt:MouseEvent):void {
+			var factorName:String;
+			switch (state) {
+				case STATE_SEED:
+					factorName = "seedType";
+					break;
+				case STATE_FERTILIZER:
+					factorName = "fertilizer";
+					break;
+				case STATE_WATER:
+					factorName = "waterAmount";
+					break;
+			}
+			var index:int = evt.target.currentFrame - 1;
+			this[factorName] = PlantType.FACTORS[factorName][index];
+			trace(factorName + " = " + this[factorName]);
+			
+			state ++;
 			updateState();
 		}
 		
