@@ -11,6 +11,7 @@
 	import flash.display.StageScaleMode;
 	import flash.geom.Matrix;
 	import flash.events.MouseEvent;
+	import flash.geom.Point;
 	
 	
 	public class Main extends MovieClip {
@@ -132,9 +133,13 @@
 		}
 		
 		public function onMouseDown(evt:MouseEvent):void {
+			var mousePoint:Point = bitmap.globalToLocal(new Point(evt.stageX, evt.stageY));
+			mousePoint.x /= 2;
+			mousePoint.y /= 2;
+			trace(mousePoint);
 			switch (state) {
 				case STATE_WORKBENCH:
-					//workbench.onMouseDown(evt);
+					workbench.onMouseDown(mousePoint.x, mousePoint.y);
 					break;
 				case STATE_FLOWERSHOP:
 					flowerShop.onMouseDown(evt);

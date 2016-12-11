@@ -26,12 +26,11 @@
 			optionSprite = new Sprite();
 			optionSprite.y = 0.7 * Main.HEIGHT;
 			addChild(optionSprite);
-			optionSprite.addEventListener(MouseEvent.CLICK, onOptionSelect);
 			
 			updateState();
 		}
 		
-		public function onOptionSelect(evt:MouseEvent):void {
+		public function selectOption(index:int):void {
 			var factorName:String;
 			switch (state) {
 				case STATE_SEED:
@@ -44,12 +43,28 @@
 					factorName = "waterAmount";
 					break;
 			}
-			var index:int = evt.target.currentFrame - 1;
 			this[factorName] = PlantType.FACTORS[factorName][index];
 			trace(factorName + " = " + this[factorName]);
 			
 			state ++;
 			updateState();
+		}
+		
+		public function onMouseDown(mouseX:Number, mouseY:Number):void {
+			// circular hitboxes, good enough
+			for (var i:int = 0; i < optionSprite.numChildren; i ++) {
+				var child:MovieClip = optionSprite.getChildAt(i) as MovieClip;
+				var xDif:Number = optionSprite.x + child.x - mouseX;
+				var yDif:Number = optionSprite.y + child.y - mouseY;
+				var r2Dif = xDif * xDif + yDif * yDif;
+				
+				trace(Math.sqrt(r2Dif));
+				
+				if (r2Dif < 10 * 10) {
+					selectOption(child.currentFrame - 1);
+					return;
+				}
+			}
 		}
 		
 		public function updateState():void {
@@ -87,8 +102,10 @@
 					plant = new Plant();
 					plant.plantType = Main.factorMapping.createFromFactors(seedType, fertilizer, waterAmount);
 					plant.draw();
+					plant.scaleX = 0.4;
+					plant.scaleY = 0.4;
 					plant.x = 0.5 * Main.WIDTH;
-					plant.y = 0.7 * Main.HEIGHT;
+					plant.y = 0.85 * Main.HEIGHT;
 					addChild(plant);
 					break;
 			}
