@@ -31,6 +31,7 @@
 		public var state:int;
 		public static const STATE_REQUEST:int = 0;
 		public static const STATE_PICKUP:int = 1;
+		public static const STATE_NIGHT:int = 2;
 
 		public var substate:int;
 		public static const SUBSTATE_PICK_FLOWER:int = 0;
@@ -44,7 +45,7 @@
 			
 			textBox = new TextBox();
 			textBox.width = Main.FULL_WIDTH;
-			textBox.text = "HELLO!!!!!!"
+			textBox.text = "Hi! This is my flower shop. It's very small -- just one room! Each day, customers come past and make an order."
 			
 			plantSprite = new Sprite();
 			
@@ -67,7 +68,12 @@
 							break;
 						case SUBSTATE_RESPONSE:
 							customerIndex ++;
-							substate = 0;
+							if (customerIndex >= customers.length) {
+								state = STATE_NIGHT;
+							}
+							else {
+								substate = 0;
+							}
 							break;
 					}
 					break;
@@ -162,7 +168,13 @@
 		}
 		
 		public function get done():Boolean {
-			return customerIndex >= customers.length;
+			switch (state) {
+				case STATE_NIGHT:
+					return true;
+				case STATE_REQUEST:
+					return customerIndex >= customers.length;
+			}
+			return false;
 		}
 
 	}

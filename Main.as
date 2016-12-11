@@ -62,8 +62,6 @@
 			textBox = new TextBox();
 			textBox.width = stage.stageWidth;
 			//addChild(textBox);
-			workbench = new Workbench();
-			flowerShop = new FlowerShop();
 			
 			factorMapping = new FactorMapping();
 			
@@ -150,7 +148,15 @@
 				case STATE_FLOWERSHOP:
 					flowerShop.onMouseDown(mousePoint.x, mousePoint.y);
 					if (flowerShop.done) {
-						state = STATE_WORKBENCH;
+						switch (flowerShop.state) {
+							case FlowerShop.STATE_REQUEST:
+								state = STATE_WORKBENCH;
+								break;
+							case FlowerShop.STATE_NIGHT:
+								day ++;
+								startDay();
+								break;
+						}
 					}
 					break;
 			}
@@ -158,6 +164,10 @@
 		
 		// Game stuff
 		public function startDay():void {
+			flowerShop = new FlowerShop();
+			workbench = new Workbench();
+			state = STATE_FLOWERSHOP;
+			
 			customers = [];
 			for (var i:int = 0; i < DIFFICULTIES[day].length; i ++) {
 				var customer:Customer = new Customer();
