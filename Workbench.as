@@ -56,11 +56,12 @@
 					break;
 				default:
 					plant = new Plant();
-					plant.plantType.randomise();
+					plant.plantType.randomiseAll();
 					plant.draw();
 					plant.x = 0.5 * Main.WIDTH;
 					plant.y = 0.7 * Main.HEIGHT;
 					addChild(plant);
+					break;
 			}
 		}
 

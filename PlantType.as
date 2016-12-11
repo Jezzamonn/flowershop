@@ -3,15 +3,6 @@
 	
 	public class PlantType {
 
-		public static const FLOWER_SHAPES:Array = [
-			"rose", "sketchy", "tissue box",
-		];
-		public static const LEAF_SHAPES:Array = [
-			"smooth", "jagged", "spikey",
-		];
-		public static const FLOWER_COLORS:Array = [
-			"red", "pink", "blue", //"orange", "purple",
-		];
 		public static const FLOWER_COLOR_MULTS:Object = {
 			red: [0.7, 0.3, 0.3],
 			pink: [0.8, 0.6, 0.6],
@@ -20,9 +11,11 @@
 			purple: [0.6, 0.4, 0.6]
 		};
 		
-		public static const PROPERTIES:Array = [
-			"flowerShape", "leafShape", "flowerColor"
-		];
+		public static const PROPERTIES:Object = {
+			flowerShape: ["rose", "spikey", "tissue box", "ball-shaped"],
+			leafShape: ["smooth", "jagged", "spikey", "heart-shaped"],
+			flowerColor: ["red", "pink", "blue", "orange", /*"purple"*/]
+		};
 		
 		public static const FACTORS:Object = {
 			seedType: ["oval", "small", "long", "lumpy"],
@@ -42,18 +35,22 @@
 			this.leafShape = leafShape;
 		}
 		
-		public function randomise():void {
-			flowerShape = Util.pickRandom(FLOWER_SHAPES);
-			leafShape = Util.pickRandom(LEAF_SHAPES);
-			flowerColor = Util.pickRandom(FLOWER_COLORS);
+		public function randomise(prop:String):void {
+			this[prop] = Util.pickRandom(PROPERTIES[prop]);
+		}
+		
+		public function randomiseAll():void {
+			for (var prop:* in PROPERTIES) {
+				randomise(prop);
+			}
 		}
 		
 		public function get leafShapeIndex():int {
-			return LEAF_SHAPES.indexOf(leafShape);
+			return PROPERTIES["leafShape"].indexOf(leafShape);
 		}
 		
 		public function get flowerShapeIndex():int {
-			return FLOWER_SHAPES.indexOf(flowerShape);
+			return PROPERTIES["flowerShape"].indexOf(flowerShape);
 		}
 		
 		public function get flowerColorMults():Array {
