@@ -34,6 +34,16 @@
 		
 		public static var factorMapping:FactorMapping;
 		public var customers:Array;
+		public var score:int = 0;
+		public var day:int = 0;
+		
+		public static const DIFFICULTIES:Array = [
+			[0, 1],
+			[1, 1, 1],
+			[1, 1, 2],
+			[2, 2, 3],
+			[3, 3, 3, 3],
+		];
 		
 		public function Main() {
 			// constructor code
@@ -75,15 +85,23 @@
 			bitmapData.fillRect(bitmapData.rect, 0xFFFFFF);
 			// draw stuff to the appropriate bitmap
 			
-			flowerShop.render(bitmapData);
+			if (state == STATE_FLOWERSHOP) {
+				flowerShop.render(bitmapData);
+			}
 			
 			var scaleMatrix:Matrix = new Matrix();
 			scaleMatrix.scale(BASE_SCALE, BASE_SCALE);
 			
 			scaledBitmapData.draw(bitmapData, scaleMatrix);
-
-			// Just for the mo
-			scaledBitmapData.draw(workbench, scaleMatrix);
+			
+			switch (state) {
+				case STATE_FLOWERSHOP:
+					flowerShop.renderHighRes(scaledBitmapData);
+					break;
+				case STATE_WORKBENCH:
+					scaledBitmapData.draw(workbench, scaleMatrix);
+					break;
+			}
 		}
 		
 		public function resize(evt:Event = null):void {
@@ -100,6 +118,12 @@
 		
 		public function startDay():void {
 			customers = [];
+			for (var i:int = 0; i < DIFFICULTIES[day].length; i ++) {
+				var customer:Customer = new Customer();
+				customer.setPreferences(DIFFICULTIES[day][i]);
+				customers.push(customer);
+			}
+			Util.shuffle(customers);
 		}
 		
 		public function onKeyDown(evt:KeyboardEvent):void {

@@ -58,10 +58,10 @@
 		
 		public function get description():String {
 			if (flowerColor == null && flowerShape == null && leafShape == null) {
-				return "Any plant";
+				return "any plant";
 			}
 			
-			var description:String = "A plant with "
+			var description:String = "a plant with "
 			if (flowerColor) {
 				description += flowerColor;
 			}

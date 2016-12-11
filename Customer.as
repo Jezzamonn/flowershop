@@ -26,7 +26,7 @@
 				image = (new IMAGE_CLASS() as Bitmap).bitmapData;
 			}
 			
-			skin = Rndm.integer(4);
+			skin = Rndm.integer(3);
 			body = Rndm.integer(4);
 			hair = Rndm.integer(4);
 			hairColor = Rndm.integer(4);
@@ -51,7 +51,7 @@
 				defaultHairColor, 0xFF000000 + newHairColor, 0xFFFFFF);
 		}
 		
-		public function randomisePreferences(difficulty:int = 1):void {
+		public function setPreferences(difficulty:int = 1):void {
 			// Select the preferences this person has
 			var prefs:Array = [];
 			for (var prop:* in PlantType.PROPERTIES) {
@@ -66,6 +66,17 @@
 			for each (var pref in prefs) {
 				plantType.randomise(pref);
 			}
+		}
+		
+		public function get requestText():String {
+			var out:String = "I'd like " + plantType.description;
+			if (Rndm.boolean(0.3)) {
+				out += ", please!";
+			}
+			else {
+				out += ".";
+			}
+			return out;
 		}
 
 	}

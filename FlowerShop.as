@@ -5,6 +5,7 @@
 	import flash.events.KeyboardEvent;
 	import flash.ui.Keyboard;
 	import flash.geom.Matrix;
+	import com.gskinner.utils.Rndm;
 	
 	public class FlowerShop {
 		
@@ -13,18 +14,25 @@
 		private static var image:BitmapData;
 		
 		public var currentCustomer:Customer;
+		public var textBox:TextBox;
 
 		public function FlowerShop() {
 			// constructor code
 			if (!image) {
 				image = (new IMAGE_CLASS() as Bitmap).bitmapData;
 			}
+			
+			textBox = new TextBox();
+			textBox.width = Main.FULL_WIDTH;
+			textBox.text = "HELLO!!!!!!"
 		}
 		
 		public function onKeyDown(evt:KeyboardEvent):void {
 			switch (evt.keyCode) {
 				case Keyboard.R:
 					currentCustomer = new Customer();
+					currentCustomer.setPreferences(Rndm.integer(4));
+					textBox.text = currentCustomer.requestText;
 					break;
 			}
 		}
@@ -41,6 +49,10 @@
 			
 			
 			context.copyPixels(image, image.rect, new Point(), null, null, true);
+		}
+		
+		public function renderHighRes(context:BitmapData):void {
+			context.draw(textBox);
 		}
 
 	}

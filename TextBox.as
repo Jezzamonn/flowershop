@@ -4,8 +4,8 @@
 	
 	public class TextBox extends TextField {
 		
-		[Embed(source="m5x7.ttf",
-        fontName = "m5x7",
+		[Embed(source="m3x6.ttf",
+        fontName = "m3x6",
         mimeType = "application/x-font",
         advancedAntiAliasing="true",
         embedAsCFF="false")]
@@ -17,7 +17,7 @@
 			// constructor code
 			super();
 			
-			textFormat = new TextFormat("m5x7", 32);
+			textFormat = new TextFormat("m3x6", 16);
 			defaultTextFormat = textFormat;
 			wordWrap = true;
 			embedFonts = true;
