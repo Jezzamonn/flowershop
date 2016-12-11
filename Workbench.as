@@ -40,8 +40,6 @@
 			optionSprite = new Sprite();
 			optionSprite.y = 0.9 * Main.HEIGHT;
 			addChild(optionSprite);
-			
-			updateState();
 		}
 		
 		public function renderHighRes(context:BitmapData):void {
@@ -62,7 +60,7 @@
 					break;
 			}
 			this[factorName] = PlantType.FACTORS[factorName][index];
-			trace(factorName + " = " + this[factorName]);
+			//trace(factorName + " = " + this[factorName]);
 			
 			state ++;
 			updateState();
@@ -70,6 +68,11 @@
 		
 		public function onMouseDown(mouseX:Number, mouseY:Number):void {
 			// circular hitboxes, good enough
+			if (instructionIndex < INSTRUCTIONS.length) {
+				instructionIndex ++;
+				updateState();
+			}
+			
 			if (state >= 3) {
 				state = 0;
 				donePlants.push(plant);
@@ -121,6 +124,10 @@
 			}
 			
 			Main.main.textBox.text = "";
+			if (instructionIndex < INSTRUCTIONS.length) {
+				Main.main.textBox.text = INSTRUCTIONS[instructionIndex];
+				//return;
+			}
 			
 			if (donePlants.length >= 4) {
 				return;

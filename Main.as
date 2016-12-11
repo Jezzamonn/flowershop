@@ -186,6 +186,7 @@
 						switch (flowerShop.state) {
 							case FlowerShop.STATE_REQUEST:
 								state = STATE_WORKBENCH;
+								workbench.updateState();
 								break;
 							case FlowerShop.STATE_NIGHT:
 								day ++;
@@ -202,9 +203,8 @@
 		
 		// Game stuff
 		public function startDay():void {
-			// Have to be in this order so the flowerShop has the last 'say' over the text
-			workbench = new Workbench();
 			flowerShop = new FlowerShop();
+			workbench = new Workbench();
 			state = STATE_FLOWERSHOP;
 			
 			customers = [];
