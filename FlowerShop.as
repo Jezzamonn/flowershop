@@ -7,7 +7,6 @@
 		
 		[Embed(source="graphics/frame.png")]
 		private static const IMAGE_CLASS:Class;
-		
 		private static var image:BitmapData;
 
 		public function FlowerShop() {

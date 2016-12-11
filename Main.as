@@ -49,6 +49,8 @@
 			workbench = new Workbench();
 			flowerShop = new FlowerShop();
 			
+			customers = [new Customer()];
+			
 			factorMapping = new FactorMapping();
 			
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
@@ -72,6 +74,7 @@
 			// draw stuff to the appropriate bitmap
 			
 			flowerShop.render(bitmapData);
+			bitmapData.draw((customers[0] as Customer).bitmapData);
 			
 			var scaleMatrix:Matrix = new Matrix();
 			scaleMatrix.scale(BASE_SCALE, BASE_SCALE);
@@ -108,6 +111,10 @@
 					else {
 						workbench.updateState();
 					}
+					break;
+				case Keyboard.R:
+					customers[0] = new Customer();
+					break;
 			}
 		}
 	}
