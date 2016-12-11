@@ -20,14 +20,16 @@
 		public static const FULL_WIDTH:int = BASE_SCALE * WIDTH;
 		public static const FULL_HEIGHT:int = BASE_SCALE * WIDTH;
 		
-		var textBox:TextBox;
-		var customers:Array;
-		var workbench:Workbench;
-		public static var factorMapping:FactorMapping;
-		
 		public var bitmapData:BitmapData;
 		public var scaledBitmapData:BitmapData;
 		public var bitmap:Bitmap;
+		
+		public var textBox:TextBox;
+		public var workbench:Workbench;
+		public var flowerShop:FlowerShop;
+		
+		public static var factorMapping:FactorMapping;
+		public var customers:Array;
 		
 		public function Main() {
 			// constructor code
@@ -44,9 +46,10 @@
 			textBox = new TextBox();
 			textBox.width = stage.stageWidth;
 			//addChild(textBox);
+			workbench = new Workbench();
+			flowerShop = new FlowerShop();
 			
 			factorMapping = new FactorMapping();
-			workbench = new Workbench();
 			
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 			stage.addEventListener(Event.ENTER_FRAME, onEnterFrame);
@@ -68,6 +71,8 @@
 			bitmapData.fillRect(bitmapData.rect, 0xFFFFFF);
 			// draw stuff to the appropriate bitmap
 			
+			flowerShop.render(bitmapData);
+			
 			var scaleMatrix:Matrix = new Matrix();
 			scaleMatrix.scale(BASE_SCALE, BASE_SCALE);
 			
@@ -75,7 +80,6 @@
 
 			// Just for the mo
 			scaledBitmapData.draw(workbench, scaleMatrix);
-			
 		}
 		
 		public function resize(evt:Event = null):void {
