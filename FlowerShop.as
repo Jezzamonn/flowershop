@@ -26,7 +26,6 @@
 		public var plants:Array;
 		public var curPlant:Plant;
 		public var plantSprite:Sprite;
-		public var textBox:TextBox;
 		
 		public var state:int;
 		public static const STATE_REQUEST:int = 0;
@@ -43,9 +42,7 @@
 				image = (new IMAGE_CLASS() as Bitmap).bitmapData;
 			}
 			
-			textBox = new TextBox();
-			textBox.width = Main.FULL_WIDTH;
-			textBox.text = "Hi! This is my flower shop. It's very small -- just one room! Each day, customers come past and make an order."
+			Main.main.textBox.text = "Hi! This is my flower shop. It's very small -- just one room! Each day, customers come past and make an order."
 			
 			plantSprite = new Sprite();
 			
@@ -109,20 +106,20 @@
 		}
 		
 		public function updateText():void {
-			textBox.text = "";
+			Main.main.textBox.text = "";
 			
 			if (currentCustomer) {
 				switch (state) {
 					case STATE_REQUEST:
-						textBox.text = currentCustomer.requestText;
+						Main.main.textBox.text = currentCustomer.requestText;
 						break;
 					case STATE_PICKUP:
 						switch (substate) {
 							case SUBSTATE_PICK_FLOWER:
-								textBox.text = currentCustomer.pickupText;
+								Main.main.textBox.text = currentCustomer.pickupText;
 								break;
 							case SUBSTATE_RESPONSE:
-								textBox.text = currentCustomer.responseText;
+								Main.main.textBox.text = currentCustomer.responseText;
 								break;
 						}
 						break;
@@ -149,7 +146,7 @@
 		}
 		
 		public function renderHighRes(context:BitmapData):void {
-			context.draw(textBox);
+			// nothing!
 		}
 		
 		public function goToPickup():void {

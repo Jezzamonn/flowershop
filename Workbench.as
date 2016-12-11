@@ -6,7 +6,6 @@
 	
 	public class Workbench extends Sprite {
 		
-		public var textBox:TextBox;
 		public var optionSprite:Sprite;
 		public var plant:Plant;
 		
@@ -22,10 +21,6 @@
 		public var waterAmount:String;
 
 		public function Workbench() {
-			textBox = new TextBox();
-			textBox.width = Main.FULL_WIDTH;
-			textBox.text = "";
-			
 			donePlants = [];
 			
 			optionSprite = new Sprite();
@@ -104,7 +99,7 @@
 				optionSprite.removeChildAt(0);
 			}
 			
-			textBox.text = "";
+			Main.main.textBox.text = "";
 			
 			if (donePlants.length >= 4) {
 				return;
@@ -144,7 +139,7 @@
 					plant.y = 0.85 * Main.HEIGHT;
 					addChild(plant);
 					
-					textBox.text = plant.plantType.description;
+					Main.main.textBox.text = "You grew " + plant.plantType.description + "!";
 					break;
 			}
 		}

@@ -64,8 +64,7 @@
 			addChild(bitmap);
 			
 			textBox = new TextBox();
-			textBox.width = stage.stageWidth;
-			//addChild(textBox);
+			textBox.textField.width = FULL_WIDTH;
 			
 			hoverText = new TextBox();
 			
@@ -101,8 +100,8 @@
 					break;
 			}
 			
-			hoverText.x = mousePoint.x * 2 - hoverText.textWidth / 2;
-			hoverText.y = mousePoint.y * 2 - hoverText.textHeight - 5;
+			hoverText.x = mousePoint.x * 2 - hoverText.textField.textWidth / 2;
+			hoverText.y = mousePoint.y * 2 - hoverText.textField.textHeight - 5;
 		}
 		
 		public function render():void {
@@ -124,9 +123,9 @@
 					break;
 				case STATE_WORKBENCH:
 					scaledBitmapData.draw(workbench, scaleMatrix);
-					scaledBitmapData.draw(workbench.textBox);
 					break;
 			}
+			scaledBitmapData.draw(textBox);
 			scaledBitmapData.draw(hoverText, hoverText.transform.matrix);
 		}
 		
