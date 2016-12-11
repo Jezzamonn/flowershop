@@ -69,6 +69,7 @@
 			if (instructionIndex < INSTRUCTIONS.length) {
 				instructionIndex ++;
 				updateState();
+				return;
 			}
 			
 			if (state >= 3) {

@@ -12,6 +12,7 @@
 	import flash.geom.Matrix;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
+	import com.gskinner.utils.Rndm;
 	
 	
 	public class Main extends MovieClip {
@@ -67,6 +68,9 @@
 			textBox.textField.width = FULL_WIDTH;
 			
 			hoverText = new TextBox();
+			
+			
+			Rndm.seed = int.MAX_VALUE * Math.random();
 			
 			factorMapping = new FactorMapping();
 			
