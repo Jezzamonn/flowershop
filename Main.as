@@ -214,7 +214,11 @@
 			customers = [];
 			if (day < DIFFICULTIES.length) {
 				for (var i:int = 0; i < DIFFICULTIES[day].length; i ++) {
-					var customer:Customer = new Customer();
+					var customer:Customer;
+					do {
+						customer = new Customer();
+					}
+					while (customers.length > 0 && customer.similarity(customers[customers.length-1]) <= 1);
 					customer.setPreferences(DIFFICULTIES[day][i]);
 					customers.push(customer);
 				}

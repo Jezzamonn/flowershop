@@ -58,6 +58,24 @@
 			bitmapData.threshold(bitmapData, bitmapData.rect, new Point(), "==",
 				defaultHairColor, 0xFF000000 + newHairColor, 0xFFFFFF);
 		}
+		
+		// how visually similar two people are
+		public function similarity(customer:Customer):int {
+			var difference:int = 0;
+			if (skin != customer.skin) {
+				difference ++;
+			}
+			if (body != customer.body) {
+				difference ++;
+			}
+			if (hair != customer.hair) {
+				difference ++;
+			}
+			if (hairColor != customer.hairColor) {
+				difference ++;
+			}
+			return difference;
+		}
 
 		public function setPreferences(difficulty:int = 1): void {
 			// Select the preferences this person has
