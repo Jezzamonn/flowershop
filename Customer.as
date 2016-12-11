@@ -44,6 +44,11 @@
 			rect.y = 2 * rect.height;
 			rect.x = hair * rect.width;
 			bitmapData.copyPixels(image, rect, new Point(), null, null, true);
+			
+			var defaultHairColor:int = image.getPixel(4, 47);
+			var newHairColor:int = image.getPixel(hairColor * rect.width + 4, 47);
+			bitmapData.threshold(bitmapData, bitmapData.rect, new Point(), "==",
+				defaultHairColor, 0xFF000000 + newHairColor, 0xFFFFFF);
 		}
 		
 		public function randomisePreferences(difficulty:int = 1):void {
