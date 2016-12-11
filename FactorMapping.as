@@ -33,6 +33,29 @@
 				Util.shuffle(shuffledProperties[prop]);
 			}
 		}
+		
+		public function createFromFactors(seedType:String, fertilizer:String, waterAmount:String):PlantType {
+			// This makes the next part easier
+			var factors:Object = {
+				"seedType": seedType,
+				"fertilizer": fertilizer,
+				"waterAmount": waterAmount
+			}
+			
+			var plantType:PlantType = new PlantType();
+			
+			// This is a bit confusing. Sorry!
+			for (var factorName in factors) {
+				var factorValue:String = factors[factorName];
+				var index:int = PlantType.FACTORS[factorName].indexOf(factorValue);
+				
+				// Thie corresponding property
+				var property:String = factorMapping[factorName];
+				plantType[property] = shuffledProperties[property][index];
+			}
+			
+			return plantType;
+		}
 
 	}
 	

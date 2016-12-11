@@ -83,7 +83,7 @@
 					break;
 				default:
 					plant = new Plant();
-					plant.plantType.randomiseAll();
+					plant.plantType = Main.factorMapping.createFromFactors(seedType, fertilizer, waterAmount);
 					plant.draw();
 					plant.x = 0.5 * Main.WIDTH;
 					plant.y = 0.7 * Main.HEIGHT;
