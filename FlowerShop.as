@@ -33,6 +33,7 @@
 		public static const STATE_REQUEST:int = 0;
 		public static const STATE_PICKUP:int = 1;
 		public static const STATE_NIGHT:int = 2;
+		public static const STATE_END:int = 3;
 
 		public var substate:int;
 		public static const SUBSTATE_PICK_FLOWER:int = 0;
@@ -91,6 +92,9 @@
 								break;
 						}
 						break;
+					case STATE_END:
+						state = STATE_NIGHT;
+						break;
 				}
 			}
 			updateText();
@@ -116,6 +120,7 @@
 			curPlant = plant;
 			if (curPlant.plantType.matchesRequest(currentCustomer.plantType)) {
 				currentCustomer.happy = true;
+				Main.main.score ++;
 			}
 			else {
 				currentCustomer.happy = false;
@@ -150,7 +155,18 @@
 		}
 		
 		public function render(context:BitmapData):void {
-			context.fillRect(context.rect, 0xb4e2ea);
+			switch (state) {
+				case STATE_REQUEST:
+				default:
+					context.fillRect(context.rect, 0xb4e2ea);
+					break;
+				case STATE_NIGHT:
+					context.fillRect(context.rect, 0x333e58);
+					break;
+				case STATE_PICKUP:
+					context.fillRect(context.rect, 0xcba569);
+					break;
+			}
 			
 			// Render customer here
 			if (currentCustomer) {
@@ -166,13 +182,10 @@
 			}
 			
 			if (state == STATE_NIGHT) {
-				var filter:ColorMatrixFilter = new ColorMatrixFilter([
-					0.3, 0, 0, 0, 0,
-					0, 0.4, 0, 0, 0,
-					0, 0, 0.5, 0, 0,
-					0, 0, 0, 1, 0,
-				]);
-				context.applyFilter(context, context.rect, new Point(), filter);
+				context.draw(context, null, new ColorTransform(0.3, 0.4, 0.5));
+			}
+			if (state == STATE_PICKUP) {
+				context.draw(context, null, new ColorTransform(0.95, 0.8, 0.7));
 			}
 			
 		}

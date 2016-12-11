@@ -19,8 +19,6 @@
 		public static const STATE_FERTILIZER:int = 1;
 		public static const STATE_WATER:int = 2;
 		
-		public var instructionIndex:int = 0;
-		
 		public var seedType:String;
 		public var fertilizer:String;
 		public var waterAmount:String;

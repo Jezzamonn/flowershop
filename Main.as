@@ -208,14 +208,27 @@
 			state = STATE_FLOWERSHOP;
 			
 			customers = [];
-			for (var i:int = 0; i < DIFFICULTIES[day].length; i ++) {
-				var customer:Customer = new Customer();
-				customer.setPreferences(DIFFICULTIES[day][i]);
-				customers.push(customer);
+			if (day < DIFFICULTIES.length) {
+				for (var i:int = 0; i < DIFFICULTIES[day].length; i ++) {
+					var customer:Customer = new Customer();
+					customer.setPreferences(DIFFICULTIES[day][i]);
+					customers.push(customer);
+				}
+				Util.shuffle(customers);
+				
+				flowerShop.customers = customers;
 			}
-			Util.shuffle(customers);
-			
-			flowerShop.customers = customers;
+			else {
+				flowerShop.state = FlowerShop.STATE_END;
+				var total:int = 0;
+				for each (var thing:* in DIFFICULTIES) {
+					total += thing.length;
+				}
+				textBox.text = "That's the end of the week!\n" +
+					"You made " + score + " people happy out of " + total + ".\n\n" +
+					"Click to start a new week!";
+				day = -1;
+			}
 		}
 		
 	}
