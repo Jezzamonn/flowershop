@@ -28,6 +28,10 @@
 		public var workbench:Workbench;
 		public var flowerShop:FlowerShop;
 		
+		public var state:int;
+		public static const STATE_FLOWERSHOP:int = 0;
+		public static const STATE_WORKBENCH:int = 1;
+		
 		public static var factorMapping:FactorMapping;
 		public var customers:Array;
 		
@@ -48,8 +52,6 @@
 			//addChild(textBox);
 			workbench = new Workbench();
 			flowerShop = new FlowerShop();
-			
-			customers = [new Customer()];
 			
 			factorMapping = new FactorMapping();
 			
@@ -74,7 +76,6 @@
 			// draw stuff to the appropriate bitmap
 			
 			flowerShop.render(bitmapData);
-			bitmapData.draw((customers[0] as Customer).bitmapData);
 			
 			var scaleMatrix:Matrix = new Matrix();
 			scaleMatrix.scale(BASE_SCALE, BASE_SCALE);
@@ -102,18 +103,12 @@
 		}
 		
 		public function onKeyDown(evt:KeyboardEvent):void {
-			switch (evt.keyCode) {
-				case Keyboard.SPACE:
-					workbench.state ++;
-					if (workbench.state >= 4) {
-						workbench = new Workbench();
-					}
-					else {
-						workbench.updateState();
-					}
+			switch (state) {
+				case STATE_WORKBENCH:
+					workbench = new Workbench();
 					break;
-				case Keyboard.R:
-					customers[0] = new Customer();
+				case STATE_FLOWERSHOP:
+					flowerShop.onKeyDown(evt);
 					break;
 			}
 		}
