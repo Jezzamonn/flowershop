@@ -24,6 +24,8 @@
 			textBox.width = stage.stageWidth;
 			addChild(textBox);
 			
+			PlantType.randomiseFactors();
+			
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 		}
 		

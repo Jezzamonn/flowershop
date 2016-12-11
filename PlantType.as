@@ -21,8 +21,40 @@
 			seedType: ["oval", "small", "long", "lumpy"],
 			fertilizer: ["bone meal", "kelp meal", "soybean meal", "agricultural lime"],
 			waterAmount: ["none", "little", "medium", "lots"]
-			
 		};
+		
+		// FACTOR MAPPING STUFF
+		public static var factorMapping:Object;
+		public static var shuffledProperties:Object;
+		
+		public static function randomiseFactors():void {
+			// This part makes seed type randomly influence flower shape or color, etc.
+			factorMapping = {};
+			
+			// Put the options in arrays
+			var factors:Array = [];
+			var properties:Array = [];
+			for (var factor:* in FACTORS) {
+				factors.push(factor);
+			}
+			for (var prop:* in PROPERTIES) {
+				properties.push(prop);
+			}
+			Util.shuffle(properties);
+			
+			// now we just map them 1 to one
+			for (var i:int = 0; i < factors.length; i ++) {
+				factorMapping[factors[i]] = properties[i];
+			}
+			
+			// This part makes a specific option (e.g. little water) have a random result
+			// So if water influenced color, the same water would have a different result
+			shuffledProperties = {};
+			for (prop in PROPERTIES) {
+				shuffledProperties[prop] = PROPERTIES[prop].concat();
+				Util.shuffle(shuffledProperties[prop]);
+			}
+		}
 		
 		public var flowerShape:String;
 		public var leafShape:String;
