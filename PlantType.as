@@ -83,6 +83,15 @@
 			}
 			return description;
 		}
+		
+		public function matchesRequest(plantType:PlantType):Boolean {
+			for (var prop:* in PROPERTIES) {
+				if (this[prop] && plantType[prop] && this[prop] != plantType[prop]) {
+					return false;
+				}
+			}
+			return true;
+		}
 
 	}
 	

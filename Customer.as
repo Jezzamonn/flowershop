@@ -8,16 +8,17 @@
 	public class Customer {
 
 		[Embed(source = "graphics/people.png")]
-		private static const IMAGE_CLASS: Class;
-		private static var image: BitmapData;
+		private static const IMAGE_CLASS:Class;
+		private static var image:BitmapData;
 
-		public var skin: int = 0;
-		public var body: int = 0;
-		public var hair: int = 0;
-		public var hairColor: int = 0;
-		public var bitmapData: BitmapData;
+		public var skin:int = 0;
+		public var body:int = 0;
+		public var hair:int = 0;
+		public var hairColor:int = 0;
+		public var bitmapData:BitmapData;
 
-		public var plantType: PlantType;
+		public var plantType:PlantType;
+		public var happy:Boolean = false;
 
 		public function Customer() {
 			plantType = new PlantType();
@@ -31,7 +32,7 @@
 			hair = Rndm.integer(4);
 			hairColor = Rndm.integer(4);
 
-			var rect: Rectangle = new Rectangle(0, 0, 12, 15);
+			var rect:Rectangle = new Rectangle(0, 0, 12, 15);
 			bitmapData = new BitmapData(rect.width, rect.height, true, 0);
 
 			rect.x = skin * rect.width;
@@ -51,15 +52,15 @@
 				defaultHairColor, 0xFF000000 + newHairColor, 0xFFFFFF);
 		}
 
-		public function setPreferences(difficulty: int = 1): void {
+		public function setPreferences(difficulty:int = 1): void {
 			// Select the preferences this person has
-			var prefs: Array = [];
+			var prefs:Array = [];
 			for (var prop: * in PlantType.PROPERTIES) {
 				prefs.push(prop);
 			}
 
 			while (prefs.length > difficulty) {
-				var ranIndex: int = Rndm.integer(prefs.length);
+				var ranIndex:int = Rndm.integer(prefs.length);
 				prefs.splice(ranIndex, 1);
 			}
 
@@ -68,14 +69,57 @@
 			}
 		}
 
-		public function get requestText(): String {
-			var out: String = "I'd like " + plantType.description;
-			if (Rndm.boolean(0.3)) {
-				out += ", please!";
-			} else {
-				out += ".";
+		private var _requestText:String;
+		public function get requestText():String {
+			if (!_requestText) {
+				var out:String = "I'd like " + plantType.description;
+				if (Rndm.boolean(0.3)) {
+					out += ", please!";
+				} else {
+					out += ".";
+				}
+				_requestText = out;
 			}
-			return out;
+			return _requestText;
+		}
+		
+		private var _pickupText:String;
+		public function get pickupText():String {
+			if (!_pickupText) {
+				_pickupText = Util.pickRandom([
+					"I'm here to get my flower!",
+					"One plant please!",
+					"Hello! Do you have my plant ready?",
+					"Hi! Can I pick up the plant?",
+					"I'll grab that plant now, thanks."
+				]);
+			}
+			return _pickupText;
+		}
+		
+		private var _responseText:String;
+		public function get responseText():String {
+			if (!_responseText) {
+				if (happy) {
+					_responseText = Util.pickRandom([
+						"Great! This is exactly what I want!",
+						"Perfect!",
+						"Thanks!",
+						"Wow! It's great!",
+						"Thank you."
+					]);
+				}
+				else {
+					_responseText = Util.pickRandom([
+						"Oh. This isn't what I ordered.",
+						"Hm. Well, this will be ok.",
+						"This isn't what I wanted!",
+						"Sorry, this isn't right.",
+						"Er... Did you forget my order?"
+					]);
+				}
+			}
+			return _responseText;
 		}
 
 	}

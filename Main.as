@@ -141,10 +141,15 @@
 			switch (state) {
 				case STATE_WORKBENCH:
 					workbench.onMouseDown(mousePoint.x, mousePoint.y);
+					if (workbench.done) {
+						state = STATE_FLOWERSHOP;
+						flowerShop.plants = workbench.donePlants;
+						flowerShop.goToPickup();
+					}
 					break;
 				case STATE_FLOWERSHOP:
-					flowerShop.onMouseDown(evt);
-					if (flowerShop.customerIndex > flowerShop.customers.length) {
+					flowerShop.onMouseDown(mousePoint.x, mousePoint.y);
+					if (flowerShop.done) {
 						state = STATE_WORKBENCH;
 					}
 					break;

@@ -73,8 +73,6 @@
 					var yDif:Number = optionSprite.y + child.y - mouseY;
 					var r2Dif = xDif * xDif + yDif * yDif;
 					
-					trace(Math.sqrt(r2Dif));
-					
 					if (r2Dif < 10 * 10) {
 						selectOption(child.currentFrame - 1);
 						return;
@@ -128,6 +126,10 @@
 					addChild(plant);
 					break;
 			}
+		}
+		
+		public function get done():Boolean {
+			return donePlants.length >= 4;
 		}
 
 	}
