@@ -9,6 +9,7 @@
 	import flash.events.MouseEvent;
 	import flash.display.Sprite;
 	import flash.filters.ColorMatrixFilter;
+	import flash.geom.ColorTransform;
 	
 	public class FlowerShop {
 		
@@ -29,6 +30,7 @@
 		public var plantSprite:Sprite;
 		
 		public var state:int;
+		public static const STATE_INSTRUCTIONS:int = -1;
 		public static const STATE_REQUEST:int = 0;
 		public static const STATE_PICKUP:int = 1;
 		public static const STATE_NIGHT:int = 2;
@@ -37,13 +39,24 @@
 		public static const SUBSTATE_PICK_FLOWER:int = 0;
 		public static const SUBSTATE_RESPONSE:int = 1;
 		
+		public static const INSTRUCTIONS:Array = [
+			"Hi! This is my flower shop. It's very small -- just one room!\n\n(Click to continue)",
+			"Each day, customers come past and make an order, and it's my job to grow it for them.",
+			"How about you give me a hand this week?",
+			"I get a new set of seeds each week, but I can never remember which ones grow into what!",
+			"And depending on how much water, and what fertilizer I use they turn out very different...",
+			"I can only fit 4 pots in this room, so you've got that many tries to get their orders right",
+			"Oh, and make sure you remember what everyone ordered and give them the right plant!",
+			"Hey, here comes a customer now! Good luck! <3"
+		]
+		
 		public function FlowerShop() {
 			// constructor code
 			if (!image) {
 				image = (new IMAGE_CLASS() as Bitmap).bitmapData;
 			}
 			
-			Main.main.textBox.text = "Hi! This is my flower shop. It's very small -- just one room! Each day, customers come past and make an order."
+			Main.main.textBox.text = "Each day, customers come past and make an order."
 			
 			plantSprite = new Sprite();
 			
@@ -171,6 +184,7 @@
 				plant.y = 0.95 * Main.HEIGHT;
 				plant.scaleX = 0.1;
 				plant.scaleY = 0.1;
+				plant.transform.colorTransform = new ColorTransform();
 				plantSprite.addChild(plant);
 			}
 		}

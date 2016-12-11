@@ -4,6 +4,7 @@
 	import flash.events.MouseEvent;
 	import flash.events.Event;
 	import flash.display.BitmapData;
+	import flash.geom.ColorTransform;
 	
 	public class Workbench extends Sprite {
 		
@@ -13,19 +14,30 @@
 		public var donePlants:Array = [];
 		
 		public var state:int = 0;
+		public static const STATE_INSTRUCTIONS:int = -1;
 		public static const STATE_SEED:int = 0;
 		public static const STATE_FERTILIZER:int = 1;
 		public static const STATE_WATER:int = 2;
 		
+		public var instructionIndex:int = 0;
+		
 		public var seedType:String;
 		public var fertilizer:String;
 		public var waterAmount:String;
+		
+		public static const INSTRUCTIONS:Array = [
+			"This is the workbench, where I do all my growing.",
+			"You can grow plants by clicking on what seeds, what fertilizer and how much water to use.",
+			"They each seem to affect the plants differently each week! But day-to-day they're the same.",
+			"And remember, you only have 4 pots to experiment with.",
+			"Let's get growing!",
+		];
 
 		public function Workbench() {
 			donePlants = [];
 			
 			optionSprite = new Sprite();
-			optionSprite.y = 0.8 * Main.HEIGHT;
+			optionSprite.y = 0.9 * Main.HEIGHT;
 			addChild(optionSprite);
 			
 			updateState();
@@ -64,6 +76,9 @@
 				plant.y = 0.3 * Main.HEIGHT;
 				plant.scaleX = 0.15;
 				plant.scaleY = 0.15;
+				plant.transform.colorTransform = new ColorTransform(1, 1, 1, 1, 50, 50, 50);
+				
+				plant = null
 				updateState();
 			}
 			else {
@@ -109,6 +124,17 @@
 			if (donePlants.length >= 4) {
 				return;
 			}
+			
+			if (plant == null) {
+				plant = new Plant();
+				plant.draw();
+				plant.scaleX = 0.35;
+				plant.scaleY = 0.35;
+				plant.x = 0.5 * Main.WIDTH;
+				plant.y = 0.82 * Main.HEIGHT;
+				addChildAt(plant, getChildIndex(optionSprite));
+			}
+			
 			switch (state) {
 				case STATE_SEED:
 				case STATE_FERTILIZER:
@@ -135,14 +161,8 @@
 					}
 					break;
 				default:
-					plant = new Plant();
 					plant.plantType = Main.factorMapping.createFromFactors(seedType, fertilizer, waterAmount);
 					plant.draw();
-					plant.scaleX = 0.4;
-					plant.scaleY = 0.4;
-					plant.x = 0.5 * Main.WIDTH;
-					plant.y = 0.85 * Main.HEIGHT;
-					addChild(plant);
 					
 					Main.main.textBox.text = "You grew " + plant.plantType.description + "!";
 					break;
