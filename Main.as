@@ -202,8 +202,9 @@
 		
 		// Game stuff
 		public function startDay():void {
-			flowerShop = new FlowerShop();
+			// Have to be in this order so the flowerShop has the last 'say' over the text
 			workbench = new Workbench();
+			flowerShop = new FlowerShop();
 			state = STATE_FLOWERSHOP;
 			
 			customers = [];

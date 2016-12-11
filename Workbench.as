@@ -32,6 +32,7 @@
 			"And remember, you only have 4 pots to experiment with.",
 			"Let's get growing!",
 		];
+		public static var instructionIndex:int = 0;
 
 		public function Workbench() {
 			donePlants = [];

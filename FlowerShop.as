@@ -30,7 +30,6 @@
 		public var plantSprite:Sprite;
 		
 		public var state:int;
-		public static const STATE_INSTRUCTIONS:int = -1;
 		public static const STATE_REQUEST:int = 0;
 		public static const STATE_PICKUP:int = 1;
 		public static const STATE_NIGHT:int = 2;
@@ -49,6 +48,7 @@
 			"Oh, and make sure you remember what everyone ordered and give them the right plant!",
 			"Hey, here comes a customer now! Good luck! <3"
 		]
+		public static var instructionIndex:int = 0;
 		
 		public function FlowerShop() {
 			// constructor code
@@ -56,11 +56,10 @@
 				image = (new IMAGE_CLASS() as Bitmap).bitmapData;
 			}
 			
-			Main.main.textBox.text = "Each day, customers come past and make an order."
-			
 			plantSprite = new Sprite();
 			
 			plants = [];
+			updateText();
 		}
 		
 		public function onKeyDown(evt:KeyboardEvent):void {
@@ -68,26 +67,31 @@
 		}
 		
 		public function onMouseDown(mouseX:Number, mouseY:Number):void {
-			switch (state) {
-				case STATE_REQUEST:
-					customerIndex ++;
-					break;
-				case STATE_PICKUP:
-					switch (substate) {
-						case SUBSTATE_PICK_FLOWER:
-							pickFlower(mouseX, mouseY);
-							break;
-						case SUBSTATE_RESPONSE:
-							customerIndex ++;
-							if (customerIndex >= customers.length) {
-								state = STATE_NIGHT;
-							}
-							else {
-								substate = 0;
-							}
-							break;
-					}
-					break;
+			if (instructionIndex < INSTRUCTIONS.length) {
+				instructionIndex ++;
+			}
+			else {
+				switch (state) {
+					case STATE_REQUEST:
+						customerIndex ++;
+						break;
+					case STATE_PICKUP:
+						switch (substate) {
+							case SUBSTATE_PICK_FLOWER:
+								pickFlower(mouseX, mouseY);
+								break;
+							case SUBSTATE_RESPONSE:
+								customerIndex ++;
+								if (customerIndex >= customers.length) {
+									state = STATE_NIGHT;
+								}
+								else {
+									substate = 0;
+								}
+								break;
+						}
+						break;
+				}
 			}
 			updateText();
 		}
@@ -121,6 +125,10 @@
 		
 		public function updateText():void {
 			Main.main.textBox.text = "";
+			if (instructionIndex < INSTRUCTIONS.length) {
+				Main.main.textBox.text = INSTRUCTIONS[instructionIndex];
+				return;
+			}
 			
 			if (currentCustomer) {
 				switch (state) {
