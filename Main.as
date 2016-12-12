@@ -176,6 +176,8 @@
 					//flowerShop.onKeyDown(evt);
 					break;
 			}
+			SoundManager.playSound();
+			trace(SoundManager.currentChord);
 		}
 		
 		public function onMouseDown(evt:MouseEvent):void {
