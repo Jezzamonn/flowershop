@@ -231,6 +231,7 @@
 				Util.shuffle(customers);
 				
 				flowerShop.customers = customers;
+				flowerShop.updateText();
 			}
 			else {
 				flowerShop.state = FlowerShop.STATE_END;

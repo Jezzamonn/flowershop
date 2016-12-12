@@ -17,7 +17,7 @@
 		private static const IMAGE_CLASS:Class;
 		private static var image:BitmapData;
 		
-		public var customerIndex:int = -1;
+		public var customerIndex:int = 0;
 		public function get currentCustomer():Customer {
 			if (customers && customerIndex >= 0 && customerIndex < customers.length) {
 				return customers[customerIndex];
@@ -58,8 +58,12 @@
 			}
 			
 			plantSprite = new Sprite();
-			
 			plants = [];
+			
+			if (instructionIndex < INSTRUCTIONS.length) {
+				customerIndex = -1;
+			}
+			
 			updateText();
 		}
 		
@@ -70,6 +74,9 @@
 		public function onMouseDown(mouseX:Number, mouseY:Number):void {
 			if (instructionIndex < INSTRUCTIONS.length) {
 				instructionIndex ++;
+				if (instructionIndex >= INSTRUCTIONS.length) {
+					customerIndex = 0;
+				}
 			}
 			else {
 				switch (state) {
@@ -196,8 +203,8 @@
 		
 		public function goToPickup():void {
 			state = STATE_PICKUP;
-			substate = 1;
-			customerIndex = -1;
+			substate = 0;
+			customerIndex = 0;
 			
 			for (var i:int = 0; i < plants.length; i ++) {
 				var plant:Plant = plants[i];
@@ -208,6 +215,8 @@
 				plant.transform.colorTransform = new ColorTransform();
 				plantSprite.addChild(plant);
 			}
+			
+			updateText();
 		}
 		
 		public function get done():Boolean {
@@ -215,7 +224,7 @@
 				case STATE_NIGHT:
 					return true;
 				case STATE_REQUEST:
-					return customerIndex >= customers.length;
+					return customerIndex >= customers.length - 1;
 			}
 			return false;
 		}
