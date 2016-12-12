@@ -17,6 +17,15 @@
 		private static const IMAGE_CLASS:Class;
 		private static var image:BitmapData;
 		
+		[Embed(source="graphics/title.png")]
+		private static const TITLE_CLASS:Class;
+		public static var title:BitmapData;
+		
+		{
+			image = (new IMAGE_CLASS() as Bitmap).bitmapData;
+			title = (new TITLE_CLASS() as Bitmap).bitmapData;
+		}
+		
 		public var customerIndex:int = 0;
 		public function get currentCustomer():Customer {
 			if (customers && customerIndex >= 0 && customerIndex < customers.length) {
@@ -40,6 +49,7 @@
 		public static const SUBSTATE_RESPONSE:int = 1;
 		
 		public static const INSTRUCTIONS:Array = [
+			"",
 			"Hi! This is my flower shop. It's very small -- just one room!\n\n(Click to continue)",
 			"Each day, customers come past and make an order, and it's my job to grow it for them.",
 			"How about you give me a hand this week?",
@@ -53,10 +63,6 @@
 		
 		public function FlowerShop() {
 			// constructor code
-			if (!image) {
-				image = (new IMAGE_CLASS() as Bitmap).bitmapData;
-			}
-			
 			plantSprite = new Sprite();
 			plants = [];
 			
@@ -195,10 +201,24 @@
 				context.draw(context, null, new ColorTransform(0.95, 0.8, 0.7));
 			}
 			
+			if (instructionIndex == 0) {
+				context.copyPixels(title, title.rect, new Point(), null, null, true);
+			}
+			
 		}
 		
 		public function renderHighRes(context:BitmapData):void {
-			// nothing!
+			if (instructionIndex == 0) {
+				var textBox2:TextBox = new TextBox();
+				textBox2.textFormat.color = 0x765834;
+				textBox2.textField.defaultTextFormat = textBox2.textFormat;
+				textBox2.textField.width = Main.FULL_WIDTH;
+				textBox2.text = "a Ludum Dare game by @jezzamonn";
+				textBox2.bgShape.alpha = 0.2;
+				textBox2.x = 0.15 * Main.FULL_WIDTH;
+				textBox2.y = 0.3 * Main.FULL_HEIGHT;
+				context.draw(textBox2, textBox2.transform.matrix);
+			}
 		}
 		
 		public function goToPickup():void {

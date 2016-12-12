@@ -36,8 +36,9 @@
 		public function updateBGShape():void {
 			bgShape.graphics.clear();
 			if (textField.text.length > 0) {
-				bgShape.graphics.beginFill(0xFFFFFF, 0.5);
+				bgShape.graphics.beginFill(0xFFFFFF);
 				bgShape.graphics.drawRoundRect(0, 3, textField.textWidth + 3, textField.textHeight, 16);
+				bgShape.alpha = 0.5;
 			}
 		}
 		
