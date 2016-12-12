@@ -79,6 +79,8 @@
 			
 			startDay();
 			
+			SoundManager.playSong();
+			
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 			stage.addEventListener(Event.ENTER_FRAME, onEnterFrame);
 			stage.addEventListener(Event.RESIZE, resize);

@@ -1,4 +1,5 @@
 .DS_Store
 RECOVER_*
 *.swf
-music/
+*_data/
+*.aup
