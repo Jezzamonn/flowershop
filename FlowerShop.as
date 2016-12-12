@@ -165,6 +165,10 @@
 						break;
 				}
 			}
+			
+			if (state == STATE_NIGHT) {
+				Main.main.textBox.text = "zzz...";
+			}
 		}
 		
 		public function render(context:BitmapData):void {
