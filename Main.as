@@ -67,7 +67,8 @@
 			addChild(bitmap);
 			
 			textBox = new TextBox();
-			textBox.textField.width = FULL_WIDTH;
+			textBox.x = 12;
+			textBox.textField.width = FULL_WIDTH - (textBox.x * 2);
 			
 			hoverText = new TextBox();
 			hoverText.textField.width = 150;
@@ -149,7 +150,7 @@
 					scaledBitmapData.draw(workbench, scaleMatrix);
 					break;
 			}
-			scaledBitmapData.draw(textBox);
+			scaledBitmapData.draw(textBox, textBox.transform.matrix);
 			scaledBitmapData.draw(hoverText, hoverText.transform.matrix);
 		}
 		
