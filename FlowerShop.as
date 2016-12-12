@@ -125,6 +125,7 @@
 			if (plant) {
 				plantSprite.removeChild(plant);
 				givePlant(plant);
+				SoundManager.playSound();
 			}
 		}
 		

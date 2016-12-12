@@ -88,6 +88,7 @@
 				var child:MovieClip = Util.getCloseChild(optionSprite, mouseX, mouseY) as MovieClip;
 				if (child) {
 					selectOption(child.currentFrame - 1);
+					SoundManager.playSound();
 				}
 			}
 		}

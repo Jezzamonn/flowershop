@@ -80,6 +80,7 @@
 			
 			startDay();
 			
+			SoundManager.init();
 			SoundManager.playSong();
 			
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
