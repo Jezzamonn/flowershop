@@ -35,8 +35,8 @@
 			}
 
 			skin = Rndm.integer(3);
-			body = Rndm.integer(4);
-			hair = Rndm.integer(4);
+			body = Rndm.integer(9);
+			hair = Rndm.integer(12);
 			hairColor = Rndm.integer(4);
 
 			var rect:Rectangle = new Rectangle(0, 0, 12, 15);
