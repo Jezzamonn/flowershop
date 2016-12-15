@@ -12,7 +12,7 @@
 		};
 		
 		public static const PROPERTIES:Object = {
-			flowerShape: ["rose", "spiky", "frangipani", "ball-shaped"],
+			flowerShape: ["rose", "pointy", "frangipani", "ball-shaped"],
 			leafShape: ["smooth", "jagged", "spiky", "heart-shaped"],
 			flowerColor: ["red", "pink", "blue", "orange", /*"purple"*/]
 		};
