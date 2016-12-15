@@ -37,7 +37,16 @@
 			skin = Rndm.integer(3);
 			body = Rndm.integer(9);
 			hair = Rndm.integer(12);
-			hairColor = Rndm.integer(4);
+			// Prevent dark skinned people from having red hair.
+			if (skin <= 2) {
+				hairColor = Rndm.integer(3);
+				if (hairColor == 2) {
+					hairColor ++;
+				}
+			}
+			else {
+				hairColor = Rndm.integer(4);
+			}
 
 			var rect:Rectangle = new Rectangle(0, 0, 12, 15);
 			bitmapData = new BitmapData(rect.width, rect.height, true, 0);
