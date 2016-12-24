@@ -100,11 +100,11 @@
 					// Normalise xAmt;
 					xAmt2 /= 2;
 
-					flower.scaleX = 0.07;
-					flower.scaleY = 0.07;
+					flower.scaleX = 0.1;
+					flower.scaleY = 0.1;
 					flower.rotation = rndm.float(360);
 					flower.x = -w/2 + w * xAmt2;
-					flower.y = -50 - h + h * yAmt2;
+					flower.y = -40 - h + h * yAmt2;
 					
 					addChild(flower);
 				}
