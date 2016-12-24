@@ -171,6 +171,11 @@
 			switch (state) {
 				case STATE_WORKBENCH:
 					//workbench = new Workbench();
+					switch (evt.keyCode) {
+						case Keyboard.SPACE:
+							workbench.plant.randomiseFlowers();
+							break;
+					}
 					break;
 				case STATE_FLOWERSHOP:
 					//flowerShop.onKeyDown(evt);

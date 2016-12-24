@@ -106,14 +106,23 @@
 					flower.x = -w/2 + w * xAmt2;
 					flower.y = -50 - h + h * yAmt2;
 					
-					var mults = [0, 1, rndm.float(1)];
-					Util.shuffle(mults);
-					flower.transform.colorTransform = new ColorTransform(mults[0], mults[1], mults[2]);
 					addChild(flower);
 				}
 			}
+
+			randomiseFlowers();
 		}
 
+		public function randomiseFlowers():void {
+			for (var i:int = 0; i < numChildren; i ++) {
+				var child:* = getChildAt(i);
+				if (child is Flower) {
+					var mults = [0, 1, Rndm.float(1)];
+					Util.shuffle(mults);
+					child.transform.colorTransform = new ColorTransform(mults[0], mults[1], mults[2]);
+				}
+			}
+		}
 	}
 	
 }
