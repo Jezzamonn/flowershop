@@ -136,10 +136,10 @@
 			if (plant == null) {
 				plant = new Plant();
 				plant.draw();
-				plant.scaleX = 0.35;
-				plant.scaleY = 0.35;
+				plant.scaleX = 0.5;
+				plant.scaleY = 0.5;
 				plant.x = 0.5 * Main.WIDTH;
-				plant.y = 0.82 * Main.HEIGHT;
+				plant.y = 0.95 * Main.HEIGHT;
 				addChildAt(plant, getChildIndex(optionSprite));
 			}
 			
@@ -172,7 +172,7 @@
 					plant.plantType = Main.factorMapping.createFromFactors(seedType, fertilizer, waterAmount);
 					plant.draw();
 					
-					Main.main.textBox.text = "You grew " + plant.plantType.description + "!";
+					Main.main.textBox.text = "Merry Christmas from Flower Shop!"//"You grew " + plant.plantType.description + "!";
 					break;
 			}
 		}
