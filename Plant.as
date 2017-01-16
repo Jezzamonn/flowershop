@@ -18,13 +18,14 @@
 		
 		public function Plant() {
 			plantType = new PlantType();
+			plantType.randomiseAll();
 			seed = Rndm.integer(int.MAX_VALUE);
 
 			behindBranchSprite = new Sprite();
 			inFrontBranchSprite = new Sprite();
 
 			branches = [];
-			branches.push(new Branch(0, 0));
+			branches.push(new Branch(plantType, 0, 0));
 			behindBranchSprite.addChild(branches[0]);
 		}
 		
@@ -118,6 +119,13 @@
 								newBranches.push(childBranch);
 							}
 						}
+					}
+				}
+			}
+			else if (growLength == totalGrowingAmount) {
+				for each (branch in branches) {
+					if (branch.growing && Rndm.boolean(0.5)) {
+						branch.addFlower();
 					}
 				}
 			}
