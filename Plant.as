@@ -117,7 +117,7 @@
 			for (var i:int = 0; i < numChildren; i ++) {
 				var child:* = getChildAt(i);
 				if (child is Flower) {
-					var mults = [0, 1, Rndm.float(1)];
+					var mults = [0.3, 1, Rndm.float(0.3, 1)];
 					Util.shuffle(mults);
 					child.transform.colorTransform = new ColorTransform(mults[0], mults[1], mults[2]);
 				}
