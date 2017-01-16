@@ -102,26 +102,27 @@
 
 		public function growBranches():void {
 			growLength ++;
-			if (growLength > totalGrowingAmount) {
-				return;
-			}
-			// branches
-			var newBranches:Array = [];
-			for each (var branch:* in branches) {
-				branch.grow();
-				branch.draw(growLength, totalGrowingAmount);
+			if (growLength < totalGrowingAmount) {
+				// branches
+				var newBranches:Array = [];
+				for each (var branch:* in branches) {
+					branch.grow();
 
-				if (branch.growing && branch.growLength < 0) {
-					if (branches.length > 100) {
-						//branch.growing = false;
-					}
-					else {
-						var childBranches:Array = branch.split();
-						for each (var childBranch:* in childBranches) {
-							newBranches.push(childBranch);
+					if (branch.growing && branch.growLength < 0) {
+						if (branches.length > 100) {
+							//branch.growing = false;
+						}
+						else {
+							var childBranches:Array = branch.split();
+							for each (var childBranch:* in childBranches) {
+								newBranches.push(childBranch);
+							}
 						}
 					}
 				}
+			}
+			for each (branch in branches) {
+				branch.draw(growLength, totalGrowingAmount);
 			}
 
 			for each (var newBranch:* in newBranches) {
