@@ -18,14 +18,13 @@
 		
 		public function Plant() {
 			plantType = new PlantType();
-			plantType.randomiseAll();
 			seed = Rndm.integer(int.MAX_VALUE);
 
 			behindBranchSprite = new Sprite();
 			inFrontBranchSprite = new Sprite();
 
 			branches = [];
-			branches.push(new Branch(plantType, 0, 0));
+			branches.push(new Branch(this, 0, 0));
 			behindBranchSprite.addChild(branches[0]);
 		}
 		
@@ -54,46 +53,6 @@
 			addChild(behindBranchSprite);
 
 			addChild(pot);
-
-			// leaves
-			if (plantType.leafShape) {
-				for (var i:int = 0; i < 40; i ++) {
-					var leaf:MovieClip = new Leaf();
-					
-					leaf.gotoAndStop(plantType.leafShapeIndex + 1);
-					
-					leaf.scaleX = 0.3;
-					leaf.scaleY = 0.3;
-					leaf.rotation = 180 + rndm.float(-60, 60);
-					leaf.x = rndm.float(-50, 50);
-					leaf.y = rndm.float(-170, -70);
-					
-					// All leaves are the same green for the moment
-					leaf.transform.colorTransform = new ColorTransform(0.3, 0.6, 0.3);
-					leaf.alpha = 0.1;
-					addChild(leaf);
-				}
-			}
-			
-			// flowers
-			if (plantType.flowerShape && plantType.flowerColor) {
-				for (var j:int = 0; j < 8; j ++) {
-					var flower:MovieClip = new Flower();
-					
-					flower.gotoAndStop(plantType.flowerShapeIndex + 1);
-					
-					flower.scaleX = 0.3;
-					flower.scaleY = 0.3;
-					flower.rotation = rndm.float(-20, 20);
-					flower.x = rndm.float(-40, 40);
-					flower.y = rndm.float(-170, -90);
-					
-					var mults:Array = plantType.flowerColorMults;
-					flower.transform.colorTransform = new ColorTransform(mults[0], mults[1], mults[2]);
-					flower.alpha = 0.1;
-					addChild(flower);
-				}
-			}
 
 			// All the other branches go here because they should be in front of the pot
 			inFrontBranchSprite.x = branchPoint.x;
@@ -129,15 +88,24 @@
 					}
 				}
 			}
-			for each (branch in branches) {
-				branch.draw(growLength, totalGrowingAmount);
-			}
 
 			for each (var newBranch:* in newBranches) {
 				branches.push(newBranch);
 				inFrontBranchSprite.addChild(newBranch);
 			}
+		}
 
+		public function fullyGrow():void {
+			while (growLength < totalGrowingAmount) {
+				growBranches();
+			}
+			growLength += 100;
+		}
+
+		public function drawBranches():void {
+			for each (var branch:* in branches) {
+				branch.draw(growLength, totalGrowingAmount);
+			}
 		}
 
 	}

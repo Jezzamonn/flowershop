@@ -6,7 +6,7 @@
 
 	public class Branch extends Sprite {
 
-		public var plantType:PlantType;
+		public var plant:Plant;
 
 		// because I can't be bothered dealing with the points class, this is just an array of objects
 		public var points:Array;
@@ -29,8 +29,8 @@
 			return startThicknessIndex + points.length - 1;
 		}
 
-		public function Branch(plantType:PlantType, startX:Number, startY:Number) {
-			this.plantType = plantType;
+		public function Branch(plant:Plant, startX:Number, startY:Number) {
+			this.plant = plant;
 			points = [{x: startX, y: startY}];
 			leaves = [];
 			flowers = [];
@@ -79,7 +79,7 @@
 		public function addFlower():void {
 			var flower:MovieClip = new Flower();
 			
-			flower.gotoAndStop(plantType.flowerShapeIndex + 1);
+			flower.gotoAndStop(plant.plantType.flowerShapeIndex + 1);
 			
 			flower.x = points[points.length-1].x;
 			flower.y = points[points.length-1].y;
@@ -89,7 +89,7 @@
 			flower.scaleX = 0;
 			flower.scaleY = 0;
 			
-			var mults:Array = plantType.flowerColorMults;
+			var mults:Array = plant.plantType.flowerColorMults;
 			flower.transform.colorTransform = new ColorTransform(mults[0], mults[1], mults[2]);
 
 			addChild(flower);
@@ -99,7 +99,7 @@
 
 		public function addLeaf():void {
 			var leaf:MovieClip = new Leaf();
-			leaf.gotoAndStop(plantType.leafShapeIndex + 1);
+			leaf.gotoAndStop(plant.plantType.leafShapeIndex + 1);
 
 			leaf.x = points[points.length-1].x;
 			leaf.y = points[points.length-1].y;
@@ -164,7 +164,7 @@
 			var childBranches:Array = [];
 
 			for (var i:int = 0; i < 2; i ++) {
-				var child:Branch = new Branch(plantType, lastPoint.x, lastPoint.y);
+				var child:Branch = new Branch(plant, lastPoint.x, lastPoint.y);
 				child.bendyAmount = this.bendyAmount * 1.3;
 				child.angle = this.angle;
 				child.startThicknessIndex = lengthSoFar;

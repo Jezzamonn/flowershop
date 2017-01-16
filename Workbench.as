@@ -18,6 +18,8 @@
 		public static const STATE_SEED:int = 0;
 		public static const STATE_FERTILIZER:int = 1;
 		public static const STATE_WATER:int = 2;
+		public static const STATE_GROWING:int = 3;
+		public static const STATE_DONE_GROW:int = 4;
 		
 		public var seedType:String;
 		public var fertilizer:String;
@@ -72,7 +74,11 @@
 				return;
 			}
 			
-			if (state >= 3) {
+			if (state == STATE_GROWING) {
+				state = STATE_DONE_GROW;
+				updateState();
+			}
+			else if (state >= STATE_DONE_GROW) {
 				state = 0;
 				donePlants.push(plant);
 				plant.x = donePlants.length * 0.2 * Main.WIDTH;
@@ -118,8 +124,9 @@
 		}
 
 		public function update():void {
-			if (plant != null) {
+			if (state >= STATE_GROWING) {
 				plant.growBranches();
+				plant.drawBranches();
 			}
 		}
 		
@@ -174,10 +181,12 @@
 						optionSprite.addChild(option);
 					}
 					break;
-				default:
+				case STATE_GROWING:
 					plant.plantType = Main.factorMapping.createFromFactors(seedType, fertilizer, waterAmount);
 					plant.draw();
-					
+					break;
+				case STATE_DONE_GROW:
+					plant.fullyGrow();
 					Main.main.textBox.text = "You grew " + plant.plantType.description + "!";
 					break;
 			}
