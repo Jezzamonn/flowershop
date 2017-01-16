@@ -80,6 +80,9 @@
 			}
 			else if (state >= STATE_DONE_GROW) {
 				state = 0;
+				plant.fullyGrow();
+				plant.drawBranches();
+
 				donePlants.push(plant);
 				plant.x = donePlants.length * 0.2 * Main.WIDTH;
 				plant.y = 0.3 * Main.HEIGHT;
@@ -124,8 +127,16 @@
 		}
 
 		public function update():void {
-			if (state >= STATE_GROWING) {
+			if (state == STATE_GROWING) {
 				plant.growBranches();
+				plant.growBranches();
+				plant.drawBranches();
+			}
+			else if (state == STATE_DONE_GROW) {
+				// Grow a lot!
+				for (var i:int = 0; i < 20; i ++) {
+					plant.growBranches();
+				}
 				plant.drawBranches();
 			}
 		}
@@ -186,7 +197,6 @@
 					plant.draw();
 					break;
 				case STATE_DONE_GROW:
-					plant.fullyGrow();
 					Main.main.textBox.text = "You grew " + plant.plantType.description + "!";
 					break;
 			}
