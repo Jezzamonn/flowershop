@@ -61,7 +61,10 @@
 		public function draw(maxLength:int, totalGrowingAmt:int):void {
 			graphics.clear();
 			// TODO: Move colours to a nicer place?
-			graphics.lineStyle(10 * (maxLength - startThicknessIndex) / totalGrowingAmt, 0x2e5e3a)
+			var amt:Number = 1 - startThicknessIndex / maxLength;
+			amt *= amt;
+			amt *= maxLength / totalGrowingAmt;
+			graphics.lineStyle(10 * amt, 0x2e5e3a)
 			graphics.moveTo(points[0].x, points[0].y);
 			for (var i:int = 1; i < points.length; i ++) {
 				graphics.lineTo(points[i].x, points[i].y);

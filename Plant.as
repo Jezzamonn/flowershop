@@ -44,7 +44,7 @@
 			pot.rotation = rndm.float(-2, 2);
 
 			// Get the position that the plant should grow from
-			var branchPoint:Point = new Point(-2, -87.5);
+			var branchPoint:Point = new Point(-2, -85);
 			branchPoint = pot.localToGlobal(branchPoint);
 
 			// Add the sprite for branches behind the pot
