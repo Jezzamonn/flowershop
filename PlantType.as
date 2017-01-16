@@ -5,9 +5,9 @@
 
 		public static const FLOWER_COLOR_MULTS:Object = {
 			red: [0.7, 0.3, 0.3],
-			pink: [0.8, 0.6, 0.6],
+			pink: [1, 0.6, 1],
 			blue: [0.3, 0.4, 0.6],
-			orange: [0.7, 0.5, 0.3],
+			orange: [1, 0.6, 0],
 			purple: [0.6, 0.4, 0.6]
 		};
 		
