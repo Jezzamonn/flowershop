@@ -61,12 +61,14 @@
 		public function draw(maxLength:int, totalGrowingAmt:int):void {
 			graphics.clear();
 			// TODO: Move colours to a nicer place?
-			var amt:Number = 1 - startThicknessIndex / maxLength;
-			amt *= amt;
-			amt *= maxLength / totalGrowingAmt;
-			graphics.lineStyle(10 * amt, 0x2e5e3a)
-			graphics.moveTo(points[0].x, points[0].y);
 			for (var i:int = 1; i < points.length; i ++) {
+				// The length from the root to here
+				var length:int = startThicknessIndex + i - 1;
+				var amt:Number = 1 - length / maxLength;
+				amt *= amt;
+				amt *= maxLength / totalGrowingAmt;
+				graphics.lineStyle(10 * amt + 2, 0x2e5e3a)
+				graphics.moveTo(points[i-1].x, points[i-1].y);
 				graphics.lineTo(points[i].x, points[i].y);
 			}
 		}
