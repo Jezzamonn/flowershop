@@ -116,6 +116,12 @@
 					break;
 			}
 		}
+
+		public function update():void {
+			if (plant != null) {
+				plant.growBranches();
+			}
+		}
 		
 		public function updateState():void {
 			// Clear existing options

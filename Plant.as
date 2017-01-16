@@ -3,15 +3,29 @@
 	import com.gskinner.utils.Rndm;
 	import flash.display.MovieClip;
 	import flash.geom.ColorTransform;
+	import flash.geom.Point;
 	
 	public class Plant extends Sprite {
 		
 		public var plantType:PlantType;
 		public var seed:int;
+
+		public var branches:Array;
+		public var behindBranchSprite:Sprite;
+		public var inFrontBranchSprite:Sprite;
+		public var growLength:int = 0;
+		public var totalGrowingAmount:int = 120
 		
 		public function Plant() {
 			plantType = new PlantType();
 			seed = Rndm.integer(int.MAX_VALUE);
+
+			behindBranchSprite = new Sprite();
+			inFrontBranchSprite = new Sprite();
+
+			branches = [];
+			branches.push(new Branch(0, 0));
+			behindBranchSprite.addChild(branches[0]);
 		}
 		
 		public function draw():void {
@@ -28,6 +42,16 @@
 			pot.x = rndm.float(-2, 2);
 			pot.y = rndm.float(-2, 2);
 			pot.rotation = rndm.float(-2, 2);
+
+			// Get the position that the plant should grow from
+			var branchPoint:Point = new Point(-2, -87.5);
+			branchPoint = pot.localToGlobal(branchPoint);
+
+			// Add the sprite for branches behind the pot
+			behindBranchSprite.x = branchPoint.x;
+			behindBranchSprite.y = branchPoint.y;
+			addChild(behindBranchSprite);
+
 			addChild(pot);
 
 			// leaves
@@ -45,6 +69,7 @@
 					
 					// All leaves are the same green for the moment
 					leaf.transform.colorTransform = new ColorTransform(0.3, 0.6, 0.3);
+					leaf.alpha = 0.1;
 					addChild(leaf);
 				}
 			}
@@ -64,9 +89,46 @@
 					
 					var mults:Array = plantType.flowerColorMults;
 					flower.transform.colorTransform = new ColorTransform(mults[0], mults[1], mults[2]);
+					flower.alpha = 0.1;
 					addChild(flower);
 				}
 			}
+
+			// All the other branches go here because they should be in front of the pot
+			inFrontBranchSprite.x = branchPoint.x;
+			inFrontBranchSprite.y = branchPoint.y;
+			addChild(inFrontBranchSprite);
+		}
+
+		public function growBranches():void {
+			growLength ++;
+			if (growLength > totalGrowingAmount) {
+				return;
+			}
+			// branches
+			var newBranches:Array = [];
+			for each (var branch:* in branches) {
+				branch.grow();
+				branch.draw(growLength, totalGrowingAmount);
+
+				if (branch.growing && branch.growLength < 0) {
+					if (branches.length > 100) {
+						//branch.growing = false;
+					}
+					else {
+						var childBranches:Array = branch.split();
+						for each (var childBranch:* in childBranches) {
+							newBranches.push(childBranch);
+						}
+					}
+				}
+			}
+
+			for each (var newBranch:* in newBranches) {
+				branches.push(newBranch);
+				inFrontBranchSprite.addChild(newBranch);
+			}
+
 		}
 
 	}
